@@ -11,51 +11,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>【数据结构】队列的基本操作</title>
-    <url>/2023/10/05/%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列的特性是先进后出，即先进入队列的元素，最后出队列。<br>队列的实现方式有两种，一种是循环数组实现，另一种是指针实现。</p>
-<span id="more"></span>
-<p>目录：</p>
-<ul>
-<li><a href="#%E9%98%9F%E5%88%97">队列</a><ul>
-<li><a href="#1-%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0">1. 循环数组实现</a></li>
-<li><a href="#2-%E9%98%9F%E5%88%97%E7%9A%84%E6%8C%87%E9%92%88%E5%AE%9E%E7%8E%B0">2. 队列的指针实现</a></li>
-<li><a href="#3-%E9%98%9F%E5%88%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">3. 队列的初始化</a></li>
-<li><a href="#4-%E5%85%A5%E9%98%9F%E5%88%97">4. 入队列</a></li>
-<li><a href="#5-%E5%87%BA%E9%98%9F%E5%88%97">5. 出队列</a></li>
-</ul>
-</li>
-</ul>
-<h2 id="1-循环数组实现"><a href="#1-循环数组实现" class="headerlink" title="1. 循环数组实现"></a>1. 循环数组实现</h2><p>循环数组实现队列，需要一个首位置，一个末位置，还有一个数组。<br>以下是一循环数组创建的队列示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#define maxlength 100</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    int front;</span><br><span class="line">    int rear;</span><br><span class="line">    int data[maxlength];</span><br><span class="line">&#125;Queue;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-队列的指针实现"><a href="#2-队列的指针实现" class="headerlink" title="2. 队列的指针实现"></a>2. 队列的指针实现</h2><p>队列的指针实现，需要一个队列节点，还需要一个队列型。</p>
-<p>队列与其他数据结构有一点不同，例如在栈的指针实现过程中，只需要一个栈顶指针，而在队列的指针实现中，需要两个指针，一个指向队列的头，一个指向队列的尾。所以队列需要单独定义一个结构体，而栈只需要一个结构体指针即可。</p>
-<p>以下是一个队列节点的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct celltype&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct celltype *next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个节点中有两个域，一个域为数据域，另一个域为指向下一个节点的指针。</p>
-<p>以下是一个队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct QUEUE&#123;</span><br><span class="line">    struct celltype *front;</span><br><span class="line">    struct celltype *rear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在队列中，front指向队列的头，rear指向队列的尾。</p>
-<h2 id="3-队列的初始化"><a href="#3-队列的初始化" class="headerlink" title="3. 队列的初始化"></a>3. 队列的初始化</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void Init(QUEUE *Q)</span><br><span class="line">&#123;</span><br><span class="line">    Q.front = (struct celltype *)malloc(sizeof(struct celltype));</span><br><span class="line">    Q.front-&gt;next=NULL; //创建一个空节点，并将其作为队列的头</span><br><span class="line">    Q.rear = Q.front; //将尾指针指向头指针</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>队列的初始化即为队列分配存储空间，并初始化front和rear。</p>
-<h2 id="4-入队列"><a href="#4-入队列" class="headerlink" title="4. 入队列"></a>4. 入队列</h2><p>下面将介绍队列中两个比较重要的操作，一个是入队列，一个是出队列。(下文中的队列均指指针实现队列)<br>其中实现的方式为，先从队列的末尾插入元素，即先创建一个节点，然后将其插入到队列的末尾。当需要出队列的时候，从队列的头开始出队列。</p>
-<p>下面是入队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void push(QUEUE *Q, int x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p = (struct celltype *)malloc(sizeof(struct celltype)); // 创建新的节点，使其位于队列的末尾</span><br><span class="line">    p-&gt;data = x; // 将数据赋值给新节点</span><br><span class="line">    p-&gt;next = NULL; // 将新节点的指针域置空</span><br><span class="line">    Q-&gt;rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">    Q-&gt;rear = p; // 将尾后指针指向新节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这里对</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Q-&gt;rear-&gt;next=p; //将新节点插入到队列的末尾</span><br><span class="line">Q-&gt;rear=p; //将尾后指针指向新节点</span><br></pre></td></tr></table></figure>
-<p><strong>这两行代码做解释，解答为什么不能只写最后一行，而需要两行都写：</strong></p>
-<p><strong>第一行是将新节点插入到队列的末尾，但是此时尾后指针并没有指向新节点，所以需要将尾后指针指向新节点。</strong><br><strong>第二行是将尾后指针指向新节点，此时新节点已经插入到队列的末尾，所以需要将尾后指针指向新节点。也就是说，Q-&gt;rear只是一个标志，他的存在就是为了得到最后一个节点的位置，而并不是固定的某个元素</strong></p>
-<h2 id="5-出队列"><a href="#5-出队列" class="headerlink" title="5. 出队列"></a>5. 出队列</h2><p>下面是出队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void pop(QUEUE *Q,int *x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p=Q.front-&gt;next; //将队列的头节点的指针赋值给p</span><br><span class="line">    *x=p-&gt;data; //将p节点的数据赋值给x</span><br><span class="line">    Q.front-&gt;next=p-&gt;next; //将p节点的指针域赋值给队列的头节点的指针域</span><br><span class="line">    free(p); //释放p节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【数据结构】单链表</title>
     <url>/2023/10/05/%E5%8D%95%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p>链表是一种基本的数据结构，在很多数据结构中都会使用链表的方式进行建立，所以将链表学会学通透很有必要。</p>
@@ -165,6 +120,51 @@
       </categories>
       <tags>
         <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】队列的基本操作</title>
+    <url>/2023/10/05/%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列的特性是先进后出，即先进入队列的元素，最后出队列。<br>队列的实现方式有两种，一种是循环数组实现，另一种是指针实现。</p>
+<span id="more"></span>
+<p>目录：</p>
+<ul>
+<li><a href="#%E9%98%9F%E5%88%97">队列</a><ul>
+<li><a href="#1-%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0">1. 循环数组实现</a></li>
+<li><a href="#2-%E9%98%9F%E5%88%97%E7%9A%84%E6%8C%87%E9%92%88%E5%AE%9E%E7%8E%B0">2. 队列的指针实现</a></li>
+<li><a href="#3-%E9%98%9F%E5%88%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">3. 队列的初始化</a></li>
+<li><a href="#4-%E5%85%A5%E9%98%9F%E5%88%97">4. 入队列</a></li>
+<li><a href="#5-%E5%87%BA%E9%98%9F%E5%88%97">5. 出队列</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="1-循环数组实现"><a href="#1-循环数组实现" class="headerlink" title="1. 循环数组实现"></a>1. 循环数组实现</h2><p>循环数组实现队列，需要一个首位置，一个末位置，还有一个数组。<br>以下是一循环数组创建的队列示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#define maxlength 100</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    int front;</span><br><span class="line">    int rear;</span><br><span class="line">    int data[maxlength];</span><br><span class="line">&#125;Queue;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-队列的指针实现"><a href="#2-队列的指针实现" class="headerlink" title="2. 队列的指针实现"></a>2. 队列的指针实现</h2><p>队列的指针实现，需要一个队列节点，还需要一个队列型。</p>
+<p>队列与其他数据结构有一点不同，例如在栈的指针实现过程中，只需要一个栈顶指针，而在队列的指针实现中，需要两个指针，一个指向队列的头，一个指向队列的尾。所以队列需要单独定义一个结构体，而栈只需要一个结构体指针即可。</p>
+<p>以下是一个队列节点的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct celltype&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct celltype *next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个节点中有两个域，一个域为数据域，另一个域为指向下一个节点的指针。</p>
+<p>以下是一个队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct QUEUE&#123;</span><br><span class="line">    struct celltype *front;</span><br><span class="line">    struct celltype *rear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在队列中，front指向队列的头，rear指向队列的尾。</p>
+<h2 id="3-队列的初始化"><a href="#3-队列的初始化" class="headerlink" title="3. 队列的初始化"></a>3. 队列的初始化</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void Init(QUEUE *Q)</span><br><span class="line">&#123;</span><br><span class="line">    Q.front = (struct celltype *)malloc(sizeof(struct celltype));</span><br><span class="line">    Q.front-&gt;next=NULL; //创建一个空节点，并将其作为队列的头</span><br><span class="line">    Q.rear = Q.front; //将尾指针指向头指针</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>队列的初始化即为队列分配存储空间，并初始化front和rear。</p>
+<h2 id="4-入队列"><a href="#4-入队列" class="headerlink" title="4. 入队列"></a>4. 入队列</h2><p>下面将介绍队列中两个比较重要的操作，一个是入队列，一个是出队列。(下文中的队列均指指针实现队列)<br>其中实现的方式为，先从队列的末尾插入元素，即先创建一个节点，然后将其插入到队列的末尾。当需要出队列的时候，从队列的头开始出队列。</p>
+<p>下面是入队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void push(QUEUE *Q, int x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p = (struct celltype *)malloc(sizeof(struct celltype)); // 创建新的节点，使其位于队列的末尾</span><br><span class="line">    p-&gt;data = x; // 将数据赋值给新节点</span><br><span class="line">    p-&gt;next = NULL; // 将新节点的指针域置空</span><br><span class="line">    Q-&gt;rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">    Q-&gt;rear = p; // 将尾后指针指向新节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里对</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Q-&gt;rear-&gt;next=p; //将新节点插入到队列的末尾</span><br><span class="line">Q-&gt;rear=p; //将尾后指针指向新节点</span><br></pre></td></tr></table></figure>
+<p><strong>这两行代码做解释，解答为什么不能只写最后一行，而需要两行都写：</strong></p>
+<p><strong>第一行是将新节点插入到队列的末尾，但是此时尾后指针并没有指向新节点，所以需要将尾后指针指向新节点。</strong><br><strong>第二行是将尾后指针指向新节点，此时新节点已经插入到队列的末尾，所以需要将尾后指针指向新节点。也就是说，Q-&gt;rear只是一个标志，他的存在就是为了得到最后一个节点的位置，而并不是固定的某个元素</strong></p>
+<h2 id="5-出队列"><a href="#5-出队列" class="headerlink" title="5. 出队列"></a>5. 出队列</h2><p>下面是出队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void pop(QUEUE *Q,int *x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p=Q.front-&gt;next; //将队列的头节点的指针赋值给p</span><br><span class="line">    *x=p-&gt;data; //将p节点的数据赋值给x</span><br><span class="line">    Q.front-&gt;next=p-&gt;next; //将p节点的指针域赋值给队列的头节点的指针域</span><br><span class="line">    free(p); //释放p节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
       </tags>
   </entry>
 </search>
