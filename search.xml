@@ -5,6 +5,14 @@
     <url>/2023/10/04/Hi%EF%BC%81%E6%9C%8B%E5%8F%8B/</url>
     <content><![CDATA[<h1 id="欢迎来访！"><a href="#欢迎来访！" class="headerlink" title="欢迎来访！"></a>欢迎来访！</h1><p>Hi！朋友！欢迎来到我的博客！作为一名初学者，这里以后将会更新我的学习总结和一些经验技术分享。<span id="more"></span>如果你对我的博客内容有任何问题，可以通过侧边栏的方式与我进行联系。文章内容均为原创，如果喜欢不妨支持一下，你的支持将会激励我的创作！</p>
 <h1 id="网站搭建历程"><a href="#网站搭建历程" class="headerlink" title="网站搭建历程"></a>网站搭建历程</h1><p>本站是通过hexo框架和Next主题联合搭建的，我这个零基础初学者完全根据教程耗时约两天解决各种问题，最终呈现出这样一个博客页面。如果你对博客网站的搭建感兴趣，不妨点击<a href="https://zhuanlan.zhihu.com/p/102592286">https://zhuanlan.zhihu.com/p/102592286</a>进行类似我的博客网站的搭建。</p>
+<h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><ul>
+<li>10.4 建立博客网站并解析域名</li>
+<li>10.5 进行基本美化，填充内容</li>
+</ul>
+<h1 id="目前存在的问题"><a href="#目前存在的问题" class="headerlink" title="目前存在的问题"></a>目前存在的问题</h1><ul>
+<li>没能实现一打开博客就播放音乐</li>
+<li>博客打开速度慢</li>
+</ul>
 <h1 id="其他闲话"><a href="#其他闲话" class="headerlink" title="其他闲话"></a>其他闲话</h1><p>通过博客的搭建，让我重新感受到了计算机对我的魅力，也让我拾起了学习计算机专业的初心：并不是要挣多少钱，也并不是要会敲多少代码，而是单纯的为了好玩儿！学计算机就是为了好玩，为了能够学习更多的计算机技术。会玩电脑，也能玩好电脑！</p>
 <hr>
 <p>暂时就这样，以后再补充！</p>
@@ -53,74 +61,6 @@
       </categories>
       <tags>
         <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】单链表</title>
-    <url>/2023/10/05/%E5%8D%95%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p>链表是一种基本的数据结构，在很多数据结构中都会使用链表的方式进行建立，所以将链表学会学通透很有必要。</p>
-<span id="more"></span>
-<p>目录：</p>
-<ul>
-<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8">单链表</a><ul>
-<li><a href="#1-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89">1. 链表的定义</a></li>
-<li><a href="#2-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%88%9D%E5%A7%8B%E5%8C%96">2. 链表的创建（初始化）</a><ul>
-<li><a href="#21-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.1. 不带头结点的链表</a></li>
-<li><a href="#22-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.2. 带头结点的链表</a></li>
-</ul>
-</li>
-<li><a href="#3-%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4">3. 链表的插入和删除</a><ul>
-<li><a href="#31-%E6%8C%89%E4%BD%8D%E5%BA%8F%E6%8F%92%E5%85%A5">3.1. 按位序插入</a><ul>
-<li><a href="#311-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.1. 带头结点</a></li>
-<li><a href="#312-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.2. 不带头结点</a></li>
-</ul>
-</li>
-<li><a href="#32-%E6%8C%87%E5%AE%9A%E8%8A%82%E7%82%B9%E7%9A%84%E5%90%8E%E6%8F%92%E6%93%8D%E4%BD%9C">3.2. 指定节点的后插操作</a></li>
-<li><a href="#33-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%89%8D%E6%8F%92%E6%93%8D%E4%BD%9C">3.3. 指定元素的前插操作</a></li>
-<li><a href="#34-%E6%8C%89%E4%BD%8D%E5%BA%8F%E5%88%A0%E9%99%A4">3.4. 按位序删除</a><ul>
-<li><a href="#341-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.1. 带头结点</a></li>
-<li><a href="#342-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.2. 不带头结点</a></li>
-</ul>
-</li>
-<li><a href="#35-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C">3.5. 指定元素的删除操作</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-链表的定义"><a href="#1-链表的定义" class="headerlink" title="1. 链表的定义"></a>1. 链表的定义</h2><p>链表的定义是基于结构体之上的，一个链表一般需要定义两方面的东西，一个是链表的节点，一个是链表的指针。一个链表的定义示例如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode,*List;</span><br></pre></td></tr></table></figure>
-<p>上述代码中的val是数据域，用来存放数据，next是指针域，用来存放下一个节点的地址。<br>并且该代码采用了typedef定义了一个别名LNode，用来指代链表的节点，List是链表的指针，用来指向链表的第一个节点。</p>
-<h2 id="2-链表的创建（初始化）"><a href="#2-链表的创建（初始化）" class="headerlink" title="2. 链表的创建（初始化）"></a>2. 链表的创建（初始化）</h2><p>链表的创建有两种方式，一种是带头结点的，另一种是不带头节点的。</p>
-<h3 id="2-1-不带头结点的链表"><a href="#2-1-不带头结点的链表" class="headerlink" title="2.1. 不带头结点的链表"></a>2.1. 不带头结点的链表</h3><p>不带头结点的链表的创建方式如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即使得链表的下一个节点为空。</p>
-<h3 id="2-2-带头结点的链表"><a href="#2-2-带头结点的链表" class="headerlink" title="2.2. 带头结点的链表"></a>2.2. 带头结点的链表</h3><p>带头结点的链表的创建方式如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    L=(List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    <span class="keyword">if</span>(L==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;<span class="comment">//此时表示创建头结点失败</span></span><br><span class="line">    &#125;</span><br><span class="line">    L-&gt;next=<span class="literal">NULL</span>;<span class="comment">//头结点指向的下一个节点为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>头结点的好处就在于，当我们需要对链表进行一个操作的时候，不需要专门对链表的第一个节点进行特殊操作，我们只需要对所有的代码编写一个固定的函数，通过传递不同的值就可以实现特定高度功能。</p>
-<h2 id="3-链表的插入和删除"><a href="#3-链表的插入和删除" class="headerlink" title="3. 链表的插入和删除"></a>3. 链表的插入和删除</h2><h3 id="3-1-按位序插入"><a href="#3-1-按位序插入" class="headerlink" title="3.1. 按位序插入"></a>3.1. 按位序插入</h3><h4 id="3-1-1-带头结点"><a href="#3-1-1-带头结点" class="headerlink" title="3.1.1. 带头结点"></a>3.1.1. 带头结点</h4><p>链表的插入，需要先找到要插入位置的前后节点，然后创建一个指针，使得前一个节点指向这个指针，这个指针再指向下一个节点。</p>
-<p>在按位序插入的过程中，我们需要输入链表的头结点（供遍历寻找目标位置），要插入的位置和元素。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s.data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-1-2-不带头结点"><a href="#3-1-2-不带头结点" class="headerlink" title="3.1.2. 不带头结点"></a>3.1.2. 不带头结点</h4><p>不带头结点的插入与带头结点的插入类似，但是相对带头节点来说更加繁琐。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LNode *q=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">        q-&gt;data=e;</span><br><span class="line">        q-&gt;next=L;</span><br><span class="line">        L=q;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s.data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样传入的是第一个节点的地址，要加入节点的位置和要加入的元素，区别就在于加入要在第一个位置插入元素，就需要特别处理一下。</p>
-<h3 id="3-2-指定节点的后插操作"><a href="#3-2-指定节点的后插操作" class="headerlink" title="3.2. 指定节点的后插操作"></a>3.2. 指定节点的后插操作</h3><p>在给定节点后插入节点的操作相对简单，示例代码如下:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertNextNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    s=&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-3-指定元素的前插操作"><a href="#3-3-指定元素的前插操作" class="headerlink" title="3.3. 指定元素的前插操作"></a>3.3. 指定元素的前插操作</h3><p>在指定元素之前要插入一个元素，最容易想到的办法是将整个链表遍历一遍，之后找到这个元素的前驱节点，转换成后插操作。但是这种办法实现起来较为复杂，所以我们转换一种思维方式，采取新的方法。</p>
-<p>我们尝试在指定节点之后先插入一个节点，然后把指定节点的值赋给新节点，之后再把要插入的值赋给旧节点。总而言之就是现在之后插入节点，然后把两个节点的值互换，就相当于将前后节点互换了。示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertPriorNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    s-&gt;data=p-&gt;data;</span><br><span class="line">    p-&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-4-按位序删除"><a href="#3-4-按位序删除" class="headerlink" title="3.4. 按位序删除"></a>3.4. 按位序删除</h3><h4 id="3-4-1-带头结点"><a href="#3-4-1-带头结点" class="headerlink" title="3.4.1. 带头结点"></a>3.4.1. 带头结点</h4><p>在带头结点的删除节点操作中，我们需要给函数传递链表的第一个节点的位置，要删除的位置和一个变量用来存储删除节点的元素值。</p>
-<p>删除的主要操作是创建一个指针(不分配内存空间)指向要删除的节点，然后让要删除指针前一个节点指向要删除指针的后一个节点，然后将要删除的指针释放内存，从而达到目的。</p>
-<p>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListDelete</span><span class="params">(List L,<span class="type">int</span> i,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    p=L;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>;j&lt;i<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *q=p-&gt;next;</span><br><span class="line">    x=q-&gt;data;</span><br><span class="line">    p-&gt;next=q-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-4-2-不带头结点"><a href="#3-4-2-不带头结点" class="headerlink" title="3.4.2. 不带头结点"></a>3.4.2. 不带头结点</h4><p>与不带头结点的插入类似，这里不再赘述。</p>
-<h3 id="3-5-指定元素的删除操作"><a href="#3-5-指定元素的删除操作" class="headerlink" title="3.5. 指定元素的删除操作"></a>3.5. 指定元素的删除操作</h3><p>删除操作和带头结点的的相似，指定元素和指定元素的插入相似，这里不再赘述！</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
       </tags>
   </entry>
   <entry>
