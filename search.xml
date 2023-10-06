@@ -19,119 +19,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>【数据结构】单链表</title>
-    <url>/2023/10/05/%E5%8D%95%E9%93%BE%E8%A1%A8/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8">单链表</a><ul>
-<li><a href="#1-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89">1. 链表的定义</a></li>
-<li><a href="#2-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%88%9D%E5%A7%8B%E5%8C%96">2. 链表的创建（初始化）</a><ul>
-<li><a href="#21-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.1. 不带头结点的链表</a></li>
-<li><a href="#22-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.2. 带头结点的链表</a></li>
-</ul>
-</li>
-<li><a href="#3-%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4">3. 链表的插入和删除</a><ul>
-<li><a href="#31-%E6%8C%89%E4%BD%8D%E5%BA%8F%E6%8F%92%E5%85%A5">3.1. 按位序插入</a><ul>
-<li><a href="#311-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.1. 带头结点</a></li>
-<li><a href="#312-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.2. 不带头结点</a></li>
-</ul>
-</li>
-<li><a href="#32-%E6%8C%87%E5%AE%9A%E8%8A%82%E7%82%B9%E7%9A%84%E5%90%8E%E6%8F%92%E6%93%8D%E4%BD%9C">3.2. 指定节点的后插操作</a></li>
-<li><a href="#33-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%89%8D%E6%8F%92%E6%93%8D%E4%BD%9C">3.3. 指定元素的前插操作</a></li>
-<li><a href="#34-%E6%8C%89%E4%BD%8D%E5%BA%8F%E5%88%A0%E9%99%A4">3.4. 按位序删除</a><ul>
-<li><a href="#341-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.1. 带头结点</a></li>
-<li><a href="#342-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.2. 不带头结点</a></li>
-</ul>
-</li>
-<li><a href="#35-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C">3.5. 指定元素的删除操作</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p>链表是一种基本的数据结构，在很多数据结构中都会使用链表的方式进行建立，所以将链表学会学通透很有必要。</p>
-<span id="more"></span>
-<h2 id="1-链表的定义"><a href="#1-链表的定义" class="headerlink" title="1. 链表的定义"></a>1. 链表的定义</h2><p>链表的定义是基于结构体之上的，一个链表一般需要定义两方面的东西，一个是链表的节点，一个是链表的指针。一个链表的定义示例如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode,*List;</span><br></pre></td></tr></table></figure>
-<p>上述代码中的val是数据域，用来存放数据，next是指针域，用来存放下一个节点的地址。<br>并且该代码采用了typedef定义了一个别名LNode，用来指代链表的节点，List是链表的指针，用来指向链表的第一个节点。</p>
-<h2 id="2-链表的创建（初始化）"><a href="#2-链表的创建（初始化）" class="headerlink" title="2. 链表的创建（初始化）"></a>2. 链表的创建（初始化）</h2><p>链表的创建有两种方式，一种是带头结点的，另一种是不带头节点的。</p>
-<h3 id="2-1-不带头结点的链表"><a href="#2-1-不带头结点的链表" class="headerlink" title="2.1. 不带头结点的链表"></a>2.1. 不带头结点的链表</h3><p>不带头结点的链表的创建方式如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    *L=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>即使得链表的下一个节点为空。</p>
-<h3 id="2-2-带头结点的链表"><a href="#2-2-带头结点的链表" class="headerlink" title="2.2. 带头结点的链表"></a>2.2. 带头结点的链表</h3><p>带头结点的链表的创建方式如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    *L=(List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    <span class="keyword">if</span>(L==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;<span class="comment">//此时表示创建头结点失败</span></span><br><span class="line">    &#125;</span><br><span class="line">    *L-&gt;next=<span class="literal">NULL</span>;<span class="comment">//头结点指向的下一个节点为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>头结点的好处就在于，当我们需要对链表进行一个操作的时候，不需要专门对链表的第一个节点进行特殊操作，我们只需要对所有的代码编写一个固定的函数，通过传递不同的值就可以实现特定高度功能。</p>
-<h2 id="3-链表的插入和删除"><a href="#3-链表的插入和删除" class="headerlink" title="3. 链表的插入和删除"></a>3. 链表的插入和删除</h2><h3 id="3-1-按位序插入"><a href="#3-1-按位序插入" class="headerlink" title="3.1. 按位序插入"></a>3.1. 按位序插入</h3><h4 id="3-1-1-带头结点"><a href="#3-1-1-带头结点" class="headerlink" title="3.1.1. 带头结点"></a>3.1.1. 带头结点</h4><p>链表的插入，需要先找到要插入位置的前后节点，然后创建一个指针，使得前一个节点指向这个指针，这个指针再指向下一个节点。</p>
-<p>在按位序插入的过程中，我们需要输入链表的头结点（供遍历寻找目标位置），要插入的位置和元素。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=*L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-1-2-不带头结点"><a href="#3-1-2-不带头结点" class="headerlink" title="3.1.2. 不带头结点"></a>3.1.2. 不带头结点</h4><p>不带头结点的插入与带头结点的插入类似，但是相对带头节点来说更加繁琐。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LNode *q=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">        q-&gt;data=e;</span><br><span class="line">        q-&gt;next=L;</span><br><span class="line">        *L=q;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s.data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样传入的是第一个节点的地址，要加入节点的位置和要加入的元素，区别就在于加入要在第一个位置插入元素，就需要特别处理一下。</p>
-<h3 id="3-2-指定节点的后插操作"><a href="#3-2-指定节点的后插操作" class="headerlink" title="3.2. 指定节点的后插操作"></a>3.2. 指定节点的后插操作</h3><p>在给定节点后插入节点的操作相对简单，示例代码如下:</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertNextNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=*p-&gt;next;</span><br><span class="line">    *p-&gt;next=s;</span><br><span class="line">    s=&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-3-指定元素的前插操作"><a href="#3-3-指定元素的前插操作" class="headerlink" title="3.3. 指定元素的前插操作"></a>3.3. 指定元素的前插操作</h3><p>在指定元素之前要插入一个元素，最容易想到的办法是将整个链表遍历一遍，之后找到这个元素的前驱节点，转换成后插操作。但是这种办法实现起来较为复杂，所以我们转换一种思维方式，采取新的方法。</p>
-<p>我们尝试在指定节点之后先插入一个节点，然后把指定节点的值赋给新节点，之后再把要插入的值赋给旧节点。总而言之就是现在之后插入节点，然后把两个节点的值互换，就相当于将前后节点互换了。示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertPriorNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    *p-&gt;next=s;</span><br><span class="line">    s-&gt;data=p-&gt;data;</span><br><span class="line">    *p-&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="3-4-按位序删除"><a href="#3-4-按位序删除" class="headerlink" title="3.4. 按位序删除"></a>3.4. 按位序删除</h3><h4 id="3-4-1-带头结点"><a href="#3-4-1-带头结点" class="headerlink" title="3.4.1. 带头结点"></a>3.4.1. 带头结点</h4><p>在带头结点的删除节点操作中，我们需要给函数传递链表的第一个节点的位置，要删除的位置和一个变量用来存储删除节点的元素值。</p>
-<p>删除的主要操作是创建一个指针(不分配内存空间)指向要删除的节点，然后让要删除指针前一个节点指向要删除指针的后一个节点，然后将要删除的指针释放内存，从而达到目的。</p>
-<p>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListDelete</span><span class="params">(List L,<span class="type">int</span> i,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    p=L;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>;j&lt;i<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *q=p-&gt;next;</span><br><span class="line">    x=q-&gt;data;</span><br><span class="line">    p-&gt;next=q-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="3-4-2-不带头结点"><a href="#3-4-2-不带头结点" class="headerlink" title="3.4.2. 不带头结点"></a>3.4.2. 不带头结点</h4><p>与不带头结点的插入类似，这里不再赘述。</p>
-<h3 id="3-5-指定元素的删除操作"><a href="#3-5-指定元素的删除操作" class="headerlink" title="3.5. 指定元素的删除操作"></a>3.5. 指定元素的删除操作</h3><p>删除操作和带头结点的的相似，指定元素和指定元素的插入相似，这里不再赘述！</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>链表</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】顺序栈</title>
-    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
-<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
-<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
-<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
-<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
-<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
-<li>[1.5.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
-<span id="more"></span>
-<p> 栈的判空和判满](#15-栈的判空和判满)</p>
-<p>基本操作有以下几种：</p>
-<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
-<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
-<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
-<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
-<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>栈</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>【数据结构】链表栈</title>
     <url>/2023/10/06/%E9%93%BE%E8%A1%A8%E6%A0%88/</url>
     <content><![CDATA[<p>目录：</p>
@@ -205,6 +92,118 @@
       </categories>
       <tags>
         <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】单链表</title>
+    <url>/2023/10/05/%E5%8D%95%E9%93%BE%E8%A1%A8/</url>
+    <content><![CDATA[<p>目录：</p>
+<ul>
+<li><a href="#%E5%8D%95%E9%93%BE%E8%A1%A8">单链表</a><ul>
+<li><a href="#1-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%AE%9A%E4%B9%89">1. 链表的定义</a></li>
+<li><a href="#2-%E9%93%BE%E8%A1%A8%E7%9A%84%E5%88%9B%E5%BB%BA%E5%88%9D%E5%A7%8B%E5%8C%96">2. 链表的创建（初始化）</a><ul>
+<li><a href="#21-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.1. 不带头结点的链表</a></li>
+<li><a href="#22-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9%E7%9A%84%E9%93%BE%E8%A1%A8">2.2. 带头结点的链表</a></li>
+</ul>
+</li>
+<li><a href="#3-%E9%93%BE%E8%A1%A8%E7%9A%84%E6%8F%92%E5%85%A5%E5%92%8C%E5%88%A0%E9%99%A4">3. 链表的插入和删除</a><ul>
+<li><a href="#31-%E6%8C%89%E4%BD%8D%E5%BA%8F%E6%8F%92%E5%85%A5">3.1. 按位序插入</a><ul>
+<li><a href="#311-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.1. 带头结点</a></li>
+<li><a href="#312-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.1.2. 不带头结点</a></li>
+</ul>
+</li>
+<li><a href="#32-%E6%8C%87%E5%AE%9A%E8%8A%82%E7%82%B9%E7%9A%84%E5%90%8E%E6%8F%92%E6%93%8D%E4%BD%9C">3.2. 指定节点的后插操作</a></li>
+<li><a href="#33-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%89%8D%E6%8F%92%E6%93%8D%E4%BD%9C">3.3. 指定元素的前插操作</a></li>
+<li><a href="#34-%E6%8C%89%E4%BD%8D%E5%BA%8F%E5%88%A0%E9%99%A4">3.4. 按位序删除</a><ul>
+<li><a href="#341-%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.1. 带头结点</a></li>
+<li><a href="#342-%E4%B8%8D%E5%B8%A6%E5%A4%B4%E7%BB%93%E7%82%B9">3.4.2. 不带头结点</a></li>
+</ul>
+</li>
+<li><a href="#35-%E6%8C%87%E5%AE%9A%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%A0%E9%99%A4%E6%93%8D%E4%BD%9C">3.5. 指定元素的删除操作</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="单链表"><a href="#单链表" class="headerlink" title="单链表"></a>单链表</h1><p>链表是一种基本的数据结构，在很多数据结构中都会使用链表的方式进行建立，所以将链表学会学通透很有必要。</p>
+<span id="more"></span>
+<h2 id="1-链表的定义"><a href="#1-链表的定义" class="headerlink" title="1. 链表的定义"></a>1. 链表的定义</h2><p>链表的定义是基于结构体之上的，一个链表一般需要定义两方面的东西，一个是链表的节点，一个是链表的指针。一个链表的定义示例如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line">&#125;LNode,*List;</span><br></pre></td></tr></table></figure>
+<p>上述代码中的val是数据域，用来存放数据，next是指针域，用来存放下一个节点的地址。<br>并且该代码采用了typedef定义了一个别名LNode，用来指代链表的节点，List是链表的指针，用来指向链表的第一个节点。</p>
+<h2 id="2-链表的创建（初始化）"><a href="#2-链表的创建（初始化）" class="headerlink" title="2. 链表的创建（初始化）"></a>2. 链表的创建（初始化）</h2><p>链表的创建有两种方式，一种是带头结点的，另一种是不带头节点的。</p>
+<h3 id="2-1-不带头结点的链表"><a href="#2-1-不带头结点的链表" class="headerlink" title="2.1. 不带头结点的链表"></a>2.1. 不带头结点的链表</h3><p>不带头结点的链表的创建方式如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    *L=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即使得链表的下一个节点为空。</p>
+<h3 id="2-2-带头结点的链表"><a href="#2-2-带头结点的链表" class="headerlink" title="2.2. 带头结点的链表"></a>2.2. 带头结点的链表</h3><p>带头结点的链表的创建方式如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitList</span><span class="params">(List *L)</span></span><br><span class="line">&#123;</span><br><span class="line">    *L=(List)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    <span class="keyword">if</span>(L==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> ;<span class="comment">//此时表示创建头结点失败</span></span><br><span class="line">    &#125;</span><br><span class="line">    *L-&gt;next=<span class="literal">NULL</span>;<span class="comment">//头结点指向的下一个节点为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>头结点的好处就在于，当我们需要对链表进行一个操作的时候，不需要专门对链表的第一个节点进行特殊操作，我们只需要对所有的代码编写一个固定的函数，通过传递不同的值就可以实现特定高度功能。</p>
+<h2 id="3-链表的插入和删除"><a href="#3-链表的插入和删除" class="headerlink" title="3. 链表的插入和删除"></a>3. 链表的插入和删除</h2><h3 id="3-1-按位序插入"><a href="#3-1-按位序插入" class="headerlink" title="3.1. 按位序插入"></a>3.1. 按位序插入</h3><h4 id="3-1-1-带头结点"><a href="#3-1-1-带头结点" class="headerlink" title="3.1.1. 带头结点"></a>3.1.1. 带头结点</h4><p>链表的插入，需要先找到要插入位置的前后节点，然后创建一个指针，使得前一个节点指向这个指针，这个指针再指向下一个节点。</p>
+<p>在按位序插入的过程中，我们需要输入链表的头结点（供遍历寻找目标位置），要插入的位置和元素。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=*L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-1-2-不带头结点"><a href="#3-1-2-不带头结点" class="headerlink" title="3.1.2. 不带头结点"></a>3.1.2. 不带头结点</h4><p>不带头结点的插入与带头结点的插入类似，但是相对带头节点来说更加繁琐。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListInsert</span><span class="params">(List *L,<span class="type">int</span> i,<span class="type">int</span> e)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i==<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        LNode *q=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">        q-&gt;data=e;</span><br><span class="line">        q-&gt;next=L;</span><br><span class="line">        *L=q;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p; <span class="comment">//p表示当前指向的是哪个节点</span></span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>; <span class="comment">//j表示的是当前指向节点的位置</span></span><br><span class="line">    p=L; <span class="comment">//目前先让p指向头节点</span></span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>&amp;&amp;j&lt;i<span class="number">-1</span>) <span class="comment">//循环找到要插入节点的前一个节点</span></span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s.data=e;</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    p-&gt;next=s;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同样传入的是第一个节点的地址，要加入节点的位置和要加入的元素，区别就在于加入要在第一个位置插入元素，就需要特别处理一下。</p>
+<h3 id="3-2-指定节点的后插操作"><a href="#3-2-指定节点的后插操作" class="headerlink" title="3.2. 指定节点的后插操作"></a>3.2. 指定节点的后插操作</h3><p>在给定节点后插入节点的操作相对简单，示例代码如下:</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertNextNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=*p-&gt;next;</span><br><span class="line">    *p-&gt;next=s;</span><br><span class="line">    s=&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-指定元素的前插操作"><a href="#3-3-指定元素的前插操作" class="headerlink" title="3.3. 指定元素的前插操作"></a>3.3. 指定元素的前插操作</h3><p>在指定元素之前要插入一个元素，最容易想到的办法是将整个链表遍历一遍，之后找到这个元素的前驱节点，转换成后插操作。但是这种办法实现起来较为复杂，所以我们转换一种思维方式，采取新的方法。</p>
+<p>我们尝试在指定节点之后先插入一个节点，然后把指定节点的值赋给新节点，之后再把要插入的值赋给旧节点。总而言之就是现在之后插入节点，然后把两个节点的值互换，就相当于将前后节点互换了。示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">InsertPriorNode</span><span class="params">(LNode *p,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *s=(LNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(LNode));</span><br><span class="line">    s-&gt;next=p-&gt;next;</span><br><span class="line">    *p-&gt;next=s;</span><br><span class="line">    s-&gt;data=p-&gt;data;</span><br><span class="line">    *p-&gt;data=x;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-4-按位序删除"><a href="#3-4-按位序删除" class="headerlink" title="3.4. 按位序删除"></a>3.4. 按位序删除</h3><h4 id="3-4-1-带头结点"><a href="#3-4-1-带头结点" class="headerlink" title="3.4.1. 带头结点"></a>3.4.1. 带头结点</h4><p>在带头结点的删除节点操作中，我们需要给函数传递链表的第一个节点的位置，要删除的位置和一个变量用来存储删除节点的元素值。</p>
+<p>删除的主要操作是创建一个指针(不分配内存空间)指向要删除的节点，然后让要删除指针前一个节点指向要删除指针的后一个节点，然后将要删除的指针释放内存，从而达到目的。</p>
+<p>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">ListDelete</span><span class="params">(List L,<span class="type">int</span> i,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(i&lt;<span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *p;</span><br><span class="line">    <span class="type">int</span> j=<span class="number">0</span>;</span><br><span class="line">    p=L;</span><br><span class="line">    <span class="keyword">while</span>(p!=<span class="literal">NULL</span>;j&lt;i<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        p=p-&gt;next;</span><br><span class="line">        j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(p-&gt;next==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    LNode *q=p-&gt;next;</span><br><span class="line">    x=q-&gt;data;</span><br><span class="line">    p-&gt;next=q-&gt;next;</span><br><span class="line">    <span class="built_in">free</span>(q);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="3-4-2-不带头结点"><a href="#3-4-2-不带头结点" class="headerlink" title="3.4.2. 不带头结点"></a>3.4.2. 不带头结点</h4><p>与不带头结点的插入类似，这里不再赘述。</p>
+<h3 id="3-5-指定元素的删除操作"><a href="#3-5-指定元素的删除操作" class="headerlink" title="3.5. 指定元素的删除操作"></a>3.5. 指定元素的删除操作</h3><p>删除操作和带头结点的的相似，指定元素和指定元素的插入相似，这里不再赘述！</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>链表</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】顺序栈</title>
+    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
+    <content><![CDATA[<ul>
+<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
+<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
+<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
+<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
+<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
+<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
+<li><a href="#15-%E6%A0%88%E7%9A%84%E5%88%A4%E7%A9%BA%E5%92%8C%E5%88%A4%E6%BB%A1">1.5. 栈的判空和判满</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
+<span id="more"></span>
+<p> 栈的判空和判满](#15-栈的判空和判满)</p>
+<p>基本操作有以下几种：</p>
+<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
+<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
+<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
+<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
+<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
       </tags>
   </entry>
 </search>
