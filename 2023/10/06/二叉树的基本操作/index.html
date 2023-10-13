@@ -21,15 +21,15 @@
   </script>
 
 <link href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css" rel="stylesheet">
-  <meta name="description" content="目录：  二叉树的基本操作 1. 二叉树的创建 1.1. 顺序存储   2. 二叉树的初始化 3. 二叉树插入节点 4. 二叉树的遍历 4.1. 递归遍历 4.2. 层序遍历 4.3. 非递归遍历      二叉树的基本操作1. 二叉树的创建二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。">
+  <meta name="description" content="目录：  二叉树的基本操作 1. 二叉树的创建 1.1. 顺序存储 1.2. 链式存储   2. 二叉树的初始化 3. 二叉树插入节点 4. 二叉树的遍历 4.1. 递归遍历 4.2. 层序遍历 4.3. 非递归遍历      二叉树的基本操作1. 二叉树的创建二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【数据结构】二叉树的基本操作">
 <meta property="og:url" content="https://hitvinci.github.io/2023/10/06/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
 <meta property="og:site_name" content="Vinci的小酒馆₍ᐢ..ᐢ₎♡">
-<meta property="og:description" content="目录：  二叉树的基本操作 1. 二叉树的创建 1.1. 顺序存储   2. 二叉树的初始化 3. 二叉树插入节点 4. 二叉树的遍历 4.1. 递归遍历 4.2. 层序遍历 4.3. 非递归遍历      二叉树的基本操作1. 二叉树的创建二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。">
+<meta property="og:description" content="目录：  二叉树的基本操作 1. 二叉树的创建 1.1. 顺序存储 1.2. 链式存储   2. 二叉树的初始化 3. 二叉树插入节点 4. 二叉树的遍历 4.1. 递归遍历 4.2. 层序遍历 4.3. 非递归遍历      二叉树的基本操作1. 二叉树的创建二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-10-06T12:42:43.710Z">
-<meta property="article:modified_time" content="2023-10-13T02:12:30.509Z">
+<meta property="article:modified_time" content="2023-10-13T02:15:28.601Z">
 <meta property="article:author" content="Vinci">
 <meta property="article:tag" content="二叉树">
 <meta name="twitter:card" content="summary">
@@ -240,7 +240,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-10-13 10:12:30" itemprop="dateModified" datetime="2023-10-13T10:12:30+08:00">2023-10-13</time>
+                <time title="修改时间：2023-10-13 10:15:28" itemprop="dateModified" datetime="2023-10-13T10:15:28+08:00">2023-10-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -289,6 +289,7 @@
 <li><a href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">二叉树的基本操作</a><ul>
 <li><a href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9B%E5%BB%BA">1. 二叉树的创建</a><ul>
 <li><a href="#11-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8">1.1. 顺序存储</a></li>
+<li><a href="#12-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8">1.2. 链式存储</a></li>
 </ul>
 </li>
 <li><a href="#2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">2. 二叉树的初始化</a></li>
@@ -308,7 +309,7 @@
 <p>与其他数据结构类似，树的结构同样是先来一个结点，再来一个树的整体。<br>在树的结构体中，data表示数据域，用来存放树的节点的数据，isEmpty表示树的这个节点是否为空。</p>
 <p>对树的节点声明以后，再创建一个以节点类型为数组元素类型的数组，这样树的结构就定义好了。</p>
 <p>但由于顺序二叉树对于空间的浪费和查询的困难，顺序二叉树只适合于完全二叉树，所以我们一般使用链式二叉树。</p>
-<h3 id="链式存储"><a href="#链式存储" class="headerlink" title="链式存储"></a>链式存储</h3><p>一个典型的存储结构如下</p>
+<h3 id="1-2-链式存储"><a href="#1-2-链式存储" class="headerlink" title="1.2. 链式存储"></a>1.2. 链式存储</h3><p>一个典型的存储结构如下</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">lchild</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BTNode,*BTree;</span><br></pre></td></tr></table></figure>
 <p>该结构采用的是二叉树的左右链表示，即一个结构体中有三部分，一部分是二叉树节点本事的数据，其他两部分是指向二叉树下一个节点的指针，一个指向左子树，一个指向右子树。<br>其中data为数据域，left和right为指针域，分别指向左孩子和右孩子。</p>
 <h2 id="2-二叉树的初始化"><a href="#2-二叉树的初始化" class="headerlink" title="2. 二叉树的初始化"></a>2. 二叉树的初始化</h2><p>二叉树的初始化只需要创建一个二叉树，并让他等于NULL即可。</p>
@@ -453,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">二叉树的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">1. 二叉树的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 顺序存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">链式存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">2. 二叉树的初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">3. 二叉树插入节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.</span> <span class="nav-text">4. 二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1. 递归遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2. 层序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%9D%9E%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3. 非递归遍历</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="nav-number">1.</span> <span class="nav-text">二叉树的基本操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="nav-number">1.1.</span> <span class="nav-text">1. 二叉树的创建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.1.</span> <span class="nav-text">1.1. 顺序存储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8"><span class="nav-number">1.1.2.</span> <span class="nav-text">1.2. 链式存储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.2.</span> <span class="nav-text">2. 二叉树的初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9"><span class="nav-number">1.3.</span> <span class="nav-text">3. 二叉树插入节点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.</span> <span class="nav-text">4. 二叉树的遍历</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.1.</span> <span class="nav-text">4.1. 递归遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">4.2. 层序遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-%E9%9D%9E%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86"><span class="nav-number">1.4.3.</span> <span class="nav-text">4.3. 非递归遍历</span></a></li></ol></li></ol></li></ol></div>
       </div>
 
       <!--/noindex-->
