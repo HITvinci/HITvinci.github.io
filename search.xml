@@ -1,6 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Hi！朋友！</title>
+    <url>/2023/10/04/Hi%EF%BC%81%E6%9C%8B%E5%8F%8B/</url>
+    <content><![CDATA[<h1 id="欢迎来访！"><a href="#欢迎来访！" class="headerlink" title="欢迎来访！"></a>欢迎来访！</h1><p>Hi！朋友！欢迎来到我的博客！作为一名初学者，这里以后将会更新我的学习总结和一些经验技术分享。<span id="more"></span>如果你对我的博客内容有任何问题，可以通过侧边栏的方式与我进行联系。文章内容均为原创，如果喜欢不妨支持一下，你的支持将会激励我的创作！</p>
+<h1 id="网站搭建历程"><a href="#网站搭建历程" class="headerlink" title="网站搭建历程"></a>网站搭建历程</h1><p>本站是通过hexo框架和Next主题联合搭建的，我这个零基础初学者完全根据教程耗时约两天解决各种问题，最终呈现出这样一个博客页面。如果你对博客网站的搭建感兴趣，不妨点击<a href="https://zhuanlan.zhihu.com/p/102592286">https://zhuanlan.zhihu.com/p/102592286</a>进行类似我的博客网站的搭建。</p>
+<h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><ul>
+<li>10.4 建立博客网站并解析域名</li>
+<li>10.5 进行基本美化，填充内容</li>
+</ul>
+<h1 id="目前存在的问题"><a href="#目前存在的问题" class="headerlink" title="目前存在的问题"></a>目前存在的问题</h1><ul>
+<li>没能实现一打开博客就播放音乐</li>
+<li>博客打开速度慢</li>
+</ul>
+<h1 id="其他闲话"><a href="#其他闲话" class="headerlink" title="其他闲话"></a>其他闲话</h1><p>通过博客的搭建，让我重新感受到了计算机对我的魅力，也让我拾起了学习计算机专业的初心：并不是要挣多少钱，也并不是要会敲多少代码，而是单纯的为了好玩儿！学计算机就是为了好玩，为了能够学习更多的计算机技术。会玩电脑，也能玩好电脑！</p>
+<hr>
+<p>暂时就这样，以后再补充！</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>【数据结构】链表栈</title>
+    <url>/2023/10/06/%E9%93%BE%E8%A1%A8%E6%A0%88/</url>
+    <content><![CDATA[<p>目录：</p>
+<ul>
+<li><a href="#%E9%93%BE%E8%A1%A8%E6%A0%88">链表栈</a><ul>
+<li><a href="#1-%E9%93%BE%E5%BC%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0">1. 链式栈的实现</a></li>
+<li><a href="#2-%E9%93%BE%E8%A1%A8%E6%A0%88%E7%9A%84%E5%88%9B%E5%BB%BA">2. 链表栈的创建</a></li>
+<li><a href="#3-%E5%8E%8B%E6%A0%88">3. 压栈</a></li>
+<li><a href="#4-%E5%BC%B9%E6%A0%88">4. 弹栈</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="链表栈"><a href="#链表栈" class="headerlink" title="链表栈"></a>链表栈</h1><p>栈的主要表示方式有两种，一种是顺序表示，另一种是链式表示。本文主要介绍链式表示的栈。<br>链栈实际上和单链表差别不大，唯一区别就在于只需要对链表限定从头部进行删除元素和增加元素就可以了。</p>
+<span id="more"></span>
+<h2 id="1-链式栈的实现"><a href="#1-链式栈的实现" class="headerlink" title="1. 链式栈的实现"></a>1. 链式栈的实现</h2><p>链式栈的实现，是通过先定义一个结构体节点，然后定义一个指向该结构体的指针，通过该指针来操作栈。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span>  <span class="comment">/* 指向下一个节点的指针 */</span></span><br><span class="line">    <span class="type">int</span> data;           <span class="comment">/* 数据域 */</span></span><br><span class="line">&#125; Node;</span><br><span class="line"><span class="keyword">typedef</span> Node *Stack;</span><br></pre></td></tr></table></figure>
+<p>其中<code>Stack</code>是一个指向<code>Node</code>的指针，通过该指针可以访问链式栈的栈顶元素。</p>
+<h2 id="2-链表栈的创建"><a href="#2-链表栈的创建" class="headerlink" title="2. 链表栈的创建"></a>2. 链表栈的创建</h2><p>类似于链表的创建，链表栈也分头结点和不带头结点两种。这里为了方便起见，我们决定使用带头结点的版本。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    *S=(Stcak)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    (*S)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-压栈"><a href="#3-压栈" class="headerlink" title="3. 压栈"></a>3. 压栈</h2><p>在进行压栈操作时，我们规定只在链表的头部进行插入，即在头结点之后插入一个元素，使得这个元素的指针指向头结点的下一个元素，然后让头结点的指针指向这个元素。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(Stack *S,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=(Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    p-&gt;next=(*S)-&gt;next;</span><br><span class="line">    p-&gt;data=x;</span><br><span class="line">    (*S)-&gt;next=p;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-弹栈"><a href="#4-弹栈" class="headerlink" title="4. 弹栈"></a>4. 弹栈</h2><p>同样的，我们也只需要在头部进行删除元素即可<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack *S,<span class="type">int</span> *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=S;</span><br><span class="line">    p=S-&gt;next;</span><br><span class="line">    Node *q=p-&gt;next;</span><br><span class="line">    S-&gt;next=q;</span><br><span class="line">    (*x)=p-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】二叉树的基本操作</title>
+    <url>/2023/10/06/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>目录：</p>
+<ul>
+<li><a href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">二叉树的基本操作</a><ul>
+<li><a href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9B%E5%BB%BA">1. 二叉树的创建</a><ul>
+<li><a href="#11-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8">1.1. 顺序存储</a></li>
+<li><a href="#12-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8">1.2. 链式存储</a></li>
+</ul>
+</li>
+<li><a href="#2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">2. 二叉树的初始化</a></li>
+<li><a href="#3-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9">3. 二叉树插入节点</a></li>
+<li><a href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">4. 二叉树的遍历</a><ul>
+<li><a href="#41-%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86">4.1. 递归遍历</a></li>
+<li><a href="#42-%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86">4.2. 层序遍历</a></li>
+<li><a href="#43-%E9%9D%9E%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86">4.3. 非递归遍历</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="二叉树的基本操作"><a href="#二叉树的基本操作" class="headerlink" title="二叉树的基本操作"></a>二叉树的基本操作</h1><h2 id="1-二叉树的创建"><a href="#1-二叉树的创建" class="headerlink" title="1. 二叉树的创建"></a>1. 二叉树的创建</h2><p>二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。</p>
+<span id="more"></span>
+<h3 id="1-1-顺序存储"><a href="#1-1-顺序存储" class="headerlink" title="1.1. 顺序存储"></a>1.1. 顺序存储</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 100</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="type">bool</span> isEmpty;</span><br><span class="line">&#125;</span><br><span class="line">TreeNode t[MAXSIZE];</span><br></pre></td></tr></table></figure>
+<p>与其他数据结构类似，树的结构同样是先来一个结点，再来一个树的整体。<br>在树的结构体中，data表示数据域，用来存放树的节点的数据，isEmpty表示树的这个节点是否为空。</p>
+<p>对树的节点声明以后，再创建一个以节点类型为数组元素类型的数组，这样树的结构就定义好了。</p>
+<p>但由于顺序二叉树对于空间的浪费和查询的困难，顺序二叉树只适合于完全二叉树，所以我们一般使用链式二叉树。</p>
+<h3 id="1-2-链式存储"><a href="#1-2-链式存储" class="headerlink" title="1.2. 链式存储"></a>1.2. 链式存储</h3><p>一个典型的存储结构如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">lchild</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BTNode,*BTree;</span><br></pre></td></tr></table></figure>
+<p>该结构采用的是二叉树的左右链表示，即一个结构体中有三部分，一部分是二叉树节点本事的数据，其他两部分是指向二叉树下一个节点的指针，一个指向左子树，一个指向右子树。<br>其中data为数据域，left和right为指针域，分别指向左孩子和右孩子。</p>
+<h2 id="2-二叉树的初始化"><a href="#2-二叉树的初始化" class="headerlink" title="2. 二叉树的初始化"></a>2. 二叉树的初始化</h2><p>二叉树的初始化只需要创建一个二叉树，并让他等于NULL即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitBTree</span><span class="params">(BTree *root)</span></span><br><span class="line">&#123;</span><br><span class="line">    *root=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果我们要对根节点进行初始化的话，可以采取以下的方式：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">root=(BTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BTNode));</span><br><span class="line">root-&gt;lchild=<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;rchild-<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;data=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-二叉树插入节点"><a href="#3-二叉树插入节点" class="headerlink" title="3. 二叉树插入节点"></a>3. 二叉树插入节点</h2><p>如果需要对一个二叉树插入一个节点，我们只需要申请内存然后赋值即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">BTNode *p=(BTNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BTNode));</span><br><span class="line">p-&gt;data=<span class="number">2</span>;</span><br><span class="line">p-&gt;lchild=<span class="literal">NULL</span>;</span><br><span class="line">p-&gt;rchild=<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;lchild=p;</span><br></pre></td></tr></table></figure>
+<h2 id="4-二叉树的遍历"><a href="#4-二叉树的遍历" class="headerlink" title="4. 二叉树的遍历"></a>4. 二叉树的遍历</h2><p>二叉树的遍历有四种基本的方式，分别为先序遍历，中序遍历，后序遍历和层次遍历。其中每一种方式又有两种方式，分别为递归和非递归。</p>
+<h3 id="4-1-递归遍历"><a href="#4-1-递归遍历" class="headerlink" title="4.1. 递归遍历"></a>4.1. 递归遍历</h3><p>递归遍历的方式比较简单，只需要按照先序遍历的顺序，依次递归遍历二叉树即可，并且不同遍历方式的代码相似。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">firstTree</span><span class="params">(BTree BT)</span><span class="comment">//先序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">        firstTree(BT-&gt;left);</span><br><span class="line">        firstTree(BT-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">middleTree</span><span class="params">(BTree BT)</span><span class="comment">//中序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        middleTree(BT-&gt;left);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">        middleTree(BT-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lastTree</span><span class="params">(BTree BT)</span><span class="comment">//后序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        lastTree(BT-&gt;left);</span><br><span class="line">        lastTree(BT-&gt;right);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以通过递归遍历的方式输入数据来建立二叉树</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateBT</span><span class="params">(Tree *BT)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入字符:\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;ch);</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">        *BT=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        *BT=(Tree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">        (*BT)-&gt;data = ch;</span><br><span class="line">        CreateBT(&amp;((*BT)-&gt;left));</span><br><span class="line">        CreateBT(&amp;((*BT)-&gt;right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里是一个先序遍历的建立二叉树的方式</p>
+<h3 id="4-2-层序遍历"><a href="#4-2-层序遍历" class="headerlink" title="4.2. 层序遍历"></a>4.2. 层序遍历</h3><p>层序遍历的基本原理是借助队列的形式，当一个节点被读入以后，我们先将其压入队列末尾。接下来如果队列元素不空的话，我们就将队头的节点弹出，然后访问其值，并且将其左右子树压入队列末尾。以此类推循环往复，就达到了层序遍历的目的。<br>具体代码实现如下</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">levelOrder</span><span class="params">(BTree BT)</span></span><br><span class="line">&#123;</span><br><span class="line">    LinkQuene Q;</span><br><span class="line">    InitQuene(Q);</span><br><span class="line">    BTree p;</span><br><span class="line">    EnQuene(Q,BT);</span><br><span class="line">    <span class="keyword">while</span>(!isEmpty(Q))</span><br><span class="line">    &#123;</span><br><span class="line">        DeQueneu(Q,p);</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQuene(Q,p-&gt;lchild);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQuene(Q,p-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-3-非递归遍历"><a href="#4-3-非递归遍历" class="headerlink" title="4.3. 非递归遍历"></a>4.3. 非递归遍历</h3><p>非递归遍历需要通过栈的操作来进行，<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//前序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">firstTree</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    BTNode* p = root;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;  <span class="comment">//创造一个栈，用来存放树节点</span></span><br><span class="line">    <span class="keyword">while</span> (!s.empty() || p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//如果p不为空的话，酒将p压入栈中，然后让p指向左子树</span></span><br><span class="line">        <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当p为空时，说明根和左子树都遍历完了，该进入右子树了</span></span><br><span class="line">        <span class="keyword">if</span> (!s.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//中序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">middleTree</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    BTNode* p = root;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;  <span class="comment">//创造一个栈，用来存放树节点</span></span><br><span class="line">    <span class="keyword">while</span> (!s.empty() || p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//如果p不为空的话，酒将p压入栈中，然后让p指向左子树</span></span><br><span class="line">        <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当p为空时，说明根和左子树都遍历完了，该进入右子树了</span></span><br><span class="line">        <span class="keyword">if</span> (!s.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            p = p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中前序遍历和中序遍历的方式较为相似，只需要先建立一个栈，然后将访问到的节点存入栈中，节点一直向左指向，直到节点为空。<br>当节点为空时让指针指向栈顶元素并弹出，然后开始右子树的访问。<br>前序遍历和中序遍历的区别仅仅在于打印数据的时间不同。</p>
+<p>而后序遍历则更加复杂一点</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//后序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">PostOrderWithoutRecursion</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;</span><br><span class="line">    BTNode *p=root;<span class="comment">//p用来表示当前访问的节点</span></span><br><span class="line">    BTNode *q=<span class="literal">NULL</span>;<span class="comment">//q用来表示上一个访问的节点</span></span><br><span class="line">    <span class="comment">//先把p移动到左子树最下边</span></span><br><span class="line">    <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        s.push(P);</span><br><span class="line">        p = p-&gt;lchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!s.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//此时让p已经为空了，先从栈中提取一个元素赋给p</span></span><br><span class="line">        p = s.top();<span class="comment">//现在p的值就是最左下角的节点</span></span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;rchild == <span class="literal">NULL</span> || p-&gt;rchild == q) <span class="comment">//如果右子树为空或者刚访问过右子树</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            q = p;<span class="comment">//每次输出值以后，修改上一次访问的节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(p-&gt;lchild==q)<span class="comment">//如果左子树已经访问过了</span></span><br><span class="line">        &#123;</span><br><span class="line">            s.push(p);<span class="comment">//让根结点入栈</span></span><br><span class="line">            p = p-&gt;rchild; <span class="comment">//进入右子树</span></span><br><span class="line">            <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                s.push(p);</span><br><span class="line">                p = p-&gt;lchild;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后序遍历需要两个指针，其中一个指针指向的是当前访问的元素，另一个指针指向的是上次访问过的元素。<br>这样是为了保证左右子树都访问过了以后在访问根节点：当我们访问过左子树以后，弹出根节点，然后需要判断右子树是否访问过或者右子树是否为空，如果是的话就访问根节点，否则就将右子树的根节点压入栈中，然后再访问右子树的根节点的左子树，直到右子树为空或者右子树被访问过，就返回去访问根节点弹栈。</p>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>二叉树</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】顺序栈</title>
+    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
+    <content><![CDATA[<ul>
+<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
+<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
+<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
+<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
+<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
+<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
+<li><a href="#15-%E6%A0%88%E7%9A%84%E5%88%A4%E7%A9%BA%E5%92%8C%E5%88%A4%E6%BB%A1">1.5. 栈的判空和判满</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
+<span id="more"></span>
+<p> 栈的判空和判满](#15-栈的判空和判满)</p>
+<p>基本操作有以下几种：</p>
+<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
+<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
+<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
+<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
+<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>栈</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>【数据结构】队列的基本操作</title>
+    <url>/2023/10/05/%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<p>目录：</p>
+<ul>
+<li><a href="#%E9%98%9F%E5%88%97">队列</a><ul>
+<li><a href="#1-%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0">1. 循环数组实现</a></li>
+<li><a href="#2-%E9%98%9F%E5%88%97%E7%9A%84%E6%8C%87%E9%92%88%E5%AE%9E%E7%8E%B0">2. 队列的指针实现</a></li>
+<li><a href="#3-%E9%98%9F%E5%88%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">3. 队列的初始化</a></li>
+<li><a href="#4-%E5%85%A5%E9%98%9F%E5%88%97">4. 入队列</a></li>
+<li><a href="#5-%E5%87%BA%E9%98%9F%E5%88%97">5. 出队列</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列的特性是先进后出，即先进入队列的元素，最后出队列。<br>队列的实现方式有两种，一种是循环数组实现，另一种是指针实现。</p>
+<span id="more"></span>
+<h2 id="1-循环数组实现"><a href="#1-循环数组实现" class="headerlink" title="1. 循环数组实现"></a>1. 循环数组实现</h2><p>循环数组实现队列，需要一个首位置，一个末位置，还有一个数组。<br>以下是一循环数组创建的队列示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#define maxlength 100</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    int front;</span><br><span class="line">    int rear;</span><br><span class="line">    int data[maxlength];</span><br><span class="line">&#125;Queue;</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-队列的指针实现"><a href="#2-队列的指针实现" class="headerlink" title="2. 队列的指针实现"></a>2. 队列的指针实现</h2><p>队列的指针实现，需要一个队列节点，还需要一个队列型。</p>
+<p>队列与其他数据结构有一点不同，例如在栈的指针实现过程中，只需要一个栈顶指针，而在队列的指针实现中，需要两个指针，一个指向队列的头，一个指向队列的尾。所以队列需要单独定义一个结构体，而栈只需要一个结构体指针即可。</p>
+<p>以下是一个队列节点的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct celltype&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct celltype *next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个节点中有两个域，一个域为数据域，另一个域为指向下一个节点的指针。</p>
+<p>以下是一个队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct QUEUE&#123;</span><br><span class="line">    struct celltype *front;</span><br><span class="line">    struct celltype *rear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在队列中，front指向队列的头，rear指向队列的尾。</p>
+<h2 id="3-队列的初始化"><a href="#3-队列的初始化" class="headerlink" title="3. 队列的初始化"></a>3. 队列的初始化</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void Init(QUEUE *Q)</span><br><span class="line">&#123;</span><br><span class="line">    (*Q).front = (struct celltype *)malloc(sizeof(struct celltype));</span><br><span class="line">    (*Q).front-&gt;next=NULL; //创建一个空节点，并将其作为队列的头</span><br><span class="line">    (*Q).rear = (*Q).front; //将尾指针指向头指针</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>队列的初始化即为队列分配存储空间，并初始化front和rear。</p>
+<h2 id="4-入队列"><a href="#4-入队列" class="headerlink" title="4. 入队列"></a>4. 入队列</h2><p>下面将介绍队列中两个比较重要的操作，一个是入队列，一个是出队列。(下文中的队列均指指针实现队列)<br>其中实现的方式为，先从队列的末尾插入元素，即先创建一个节点，然后将其插入到队列的末尾。当需要出队列的时候，从队列的头开始出队列。</p>
+<p>下面是入队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void push(QUEUE *Q, int x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p = (struct celltype *)malloc(sizeof(struct celltype)); // 创建新的节点，使其位于队列的末尾</span><br><span class="line">    p-&gt;data = x; // 将数据赋值给新节点</span><br><span class="line">    p-&gt;next = NULL; // 将新节点的指针域置空</span><br><span class="line">    (*Q).rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">    (*Q).rear = p; // 将尾后指针指向新节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>这里对</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(*Q).rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">(*Q).rear = p; // 将尾后指针指向新节点</span><br></pre></td></tr></table></figure>
+<p><strong>这两行代码做解释，解答为什么不能只写最后一行，而需要两行都写：</strong></p>
+<p><strong>第一行是将新节点插入到队列的末尾，但是此时尾后指针并没有指向新节点，所以需要将尾后指针指向新节点。</strong><br><strong>第二行是将尾后指针指向新节点，此时新节点已经插入到队列的末尾，所以需要将尾后指针指向新节点。也就是说，Q-&gt;rear只是一个标志，他的存在就是为了得到最后一个节点的位置，而并不是固定的某个元素</strong></p>
+<h2 id="5-出队列"><a href="#5-出队列" class="headerlink" title="5. 出队列"></a>5. 出队列</h2><p>下面是出队列的示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void pop(QUEUE *Q,int *x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p=(*Q).front-&gt;next; //将队列的头节点的指针赋值给p</span><br><span class="line">    *x=p-&gt;data; //将p节点的数据赋值给x</span><br><span class="line">    (*Q).front-&gt;next=p-&gt;next; //将p节点的指针域赋值给队列的头节点的指针域</span><br><span class="line">    free(p); //释放p节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据结构</category>
+      </categories>
+      <tags>
+        <tag>队列</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>【数据结构】单链表</title>
     <url>/2023/10/05/%E5%8D%95%E9%93%BE%E8%A1%A8/</url>
     <content><![CDATA[<p>目录：</p>
@@ -116,209 +319,6 @@
       </categories>
       <tags>
         <tag>字符串</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Hi！朋友！</title>
-    <url>/2023/10/04/Hi%EF%BC%81%E6%9C%8B%E5%8F%8B/</url>
-    <content><![CDATA[<h1 id="欢迎来访！"><a href="#欢迎来访！" class="headerlink" title="欢迎来访！"></a>欢迎来访！</h1><p>Hi！朋友！欢迎来到我的博客！作为一名初学者，这里以后将会更新我的学习总结和一些经验技术分享。<span id="more"></span>如果你对我的博客内容有任何问题，可以通过侧边栏的方式与我进行联系。文章内容均为原创，如果喜欢不妨支持一下，你的支持将会激励我的创作！</p>
-<h1 id="网站搭建历程"><a href="#网站搭建历程" class="headerlink" title="网站搭建历程"></a>网站搭建历程</h1><p>本站是通过hexo框架和Next主题联合搭建的，我这个零基础初学者完全根据教程耗时约两天解决各种问题，最终呈现出这样一个博客页面。如果你对博客网站的搭建感兴趣，不妨点击<a href="https://zhuanlan.zhihu.com/p/102592286">https://zhuanlan.zhihu.com/p/102592286</a>进行类似我的博客网站的搭建。</p>
-<h1 id="更新日志"><a href="#更新日志" class="headerlink" title="更新日志"></a>更新日志</h1><ul>
-<li>10.4 建立博客网站并解析域名</li>
-<li>10.5 进行基本美化，填充内容</li>
-</ul>
-<h1 id="目前存在的问题"><a href="#目前存在的问题" class="headerlink" title="目前存在的问题"></a>目前存在的问题</h1><ul>
-<li>没能实现一打开博客就播放音乐</li>
-<li>博客打开速度慢</li>
-</ul>
-<h1 id="其他闲话"><a href="#其他闲话" class="headerlink" title="其他闲话"></a>其他闲话</h1><p>通过博客的搭建，让我重新感受到了计算机对我的魅力，也让我拾起了学习计算机专业的初心：并不是要挣多少钱，也并不是要会敲多少代码，而是单纯的为了好玩儿！学计算机就是为了好玩，为了能够学习更多的计算机技术。会玩电脑，也能玩好电脑！</p>
-<hr>
-<p>暂时就这样，以后再补充！</p>
-]]></content>
-  </entry>
-  <entry>
-    <title>【数据结构】链表栈</title>
-    <url>/2023/10/06/%E9%93%BE%E8%A1%A8%E6%A0%88/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E9%93%BE%E8%A1%A8%E6%A0%88">链表栈</a><ul>
-<li><a href="#1-%E9%93%BE%E5%BC%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0">1. 链式栈的实现</a></li>
-<li><a href="#2-%E9%93%BE%E8%A1%A8%E6%A0%88%E7%9A%84%E5%88%9B%E5%BB%BA">2. 链表栈的创建</a></li>
-<li><a href="#3-%E5%8E%8B%E6%A0%88">3. 压栈</a></li>
-<li><a href="#4-%E5%BC%B9%E6%A0%88">4. 弹栈</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="链表栈"><a href="#链表栈" class="headerlink" title="链表栈"></a>链表栈</h1><p>栈的主要表示方式有两种，一种是顺序表示，另一种是链式表示。本文主要介绍链式表示的栈。<br>链栈实际上和单链表差别不大，唯一区别就在于只需要对链表限定从头部进行删除元素和增加元素就可以了。</p>
-<span id="more"></span>
-<h2 id="1-链式栈的实现"><a href="#1-链式栈的实现" class="headerlink" title="1. 链式栈的实现"></a>1. 链式栈的实现</h2><p>链式栈的实现，是通过先定义一个结构体节点，然后定义一个指向该结构体的指针，通过该指针来操作栈。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span>  <span class="comment">/* 指向下一个节点的指针 */</span></span><br><span class="line">    <span class="type">int</span> data;           <span class="comment">/* 数据域 */</span></span><br><span class="line">&#125; Node;</span><br><span class="line"><span class="keyword">typedef</span> Node *Stack;</span><br></pre></td></tr></table></figure>
-<p>其中<code>Stack</code>是一个指向<code>Node</code>的指针，通过该指针可以访问链式栈的栈顶元素。</p>
-<h2 id="2-链表栈的创建"><a href="#2-链表栈的创建" class="headerlink" title="2. 链表栈的创建"></a>2. 链表栈的创建</h2><p>类似于链表的创建，链表栈也分头结点和不带头结点两种。这里为了方便起见，我们决定使用带头结点的版本。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    *S=(Stcak)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    (*S)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-压栈"><a href="#3-压栈" class="headerlink" title="3. 压栈"></a>3. 压栈</h2><p>在进行压栈操作时，我们规定只在链表的头部进行插入，即在头结点之后插入一个元素，使得这个元素的指针指向头结点的下一个元素，然后让头结点的指针指向这个元素。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(Stack *S,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=(Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    p-&gt;next=(*S)-&gt;next;</span><br><span class="line">    p-&gt;data=x;</span><br><span class="line">    (*S)-&gt;next=p;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-弹栈"><a href="#4-弹栈" class="headerlink" title="4. 弹栈"></a>4. 弹栈</h2><p>同样的，我们也只需要在头部进行删除元素即可<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack *S,<span class="type">int</span> *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=S;</span><br><span class="line">    p=S-&gt;next;</span><br><span class="line">    Node *q=p-&gt;next;</span><br><span class="line">    S-&gt;next=q;</span><br><span class="line">    (*x)=p-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>栈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】队列的基本操作</title>
-    <url>/2023/10/05/%E9%98%9F%E5%88%97%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E9%98%9F%E5%88%97">队列</a><ul>
-<li><a href="#1-%E5%BE%AA%E7%8E%AF%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0">1. 循环数组实现</a></li>
-<li><a href="#2-%E9%98%9F%E5%88%97%E7%9A%84%E6%8C%87%E9%92%88%E5%AE%9E%E7%8E%B0">2. 队列的指针实现</a></li>
-<li><a href="#3-%E9%98%9F%E5%88%97%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">3. 队列的初始化</a></li>
-<li><a href="#4-%E5%85%A5%E9%98%9F%E5%88%97">4. 入队列</a></li>
-<li><a href="#5-%E5%87%BA%E9%98%9F%E5%88%97">5. 出队列</a></li>
-</ul>
-</li>
-</ul>
-<h1 id="队列"><a href="#队列" class="headerlink" title="队列"></a>队列</h1><p>队列的特性是先进后出，即先进入队列的元素，最后出队列。<br>队列的实现方式有两种，一种是循环数组实现，另一种是指针实现。</p>
-<span id="more"></span>
-<h2 id="1-循环数组实现"><a href="#1-循环数组实现" class="headerlink" title="1. 循环数组实现"></a>1. 循环数组实现</h2><p>循环数组实现队列，需要一个首位置，一个末位置，还有一个数组。<br>以下是一循环数组创建的队列示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">#define maxlength 100</span><br><span class="line">typedef struct&#123;</span><br><span class="line">    int front;</span><br><span class="line">    int rear;</span><br><span class="line">    int data[maxlength];</span><br><span class="line">&#125;Queue;</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-队列的指针实现"><a href="#2-队列的指针实现" class="headerlink" title="2. 队列的指针实现"></a>2. 队列的指针实现</h2><p>队列的指针实现，需要一个队列节点，还需要一个队列型。</p>
-<p>队列与其他数据结构有一点不同，例如在栈的指针实现过程中，只需要一个栈顶指针，而在队列的指针实现中，需要两个指针，一个指向队列的头，一个指向队列的尾。所以队列需要单独定义一个结构体，而栈只需要一个结构体指针即可。</p>
-<p>以下是一个队列节点的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct celltype&#123;</span><br><span class="line">    int data;</span><br><span class="line">    struct celltype *next;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个节点中有两个域，一个域为数据域，另一个域为指向下一个节点的指针。</p>
-<p>以下是一个队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">struct QUEUE&#123;</span><br><span class="line">    struct celltype *front;</span><br><span class="line">    struct celltype *rear;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在队列中，front指向队列的头，rear指向队列的尾。</p>
-<h2 id="3-队列的初始化"><a href="#3-队列的初始化" class="headerlink" title="3. 队列的初始化"></a>3. 队列的初始化</h2><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void Init(QUEUE *Q)</span><br><span class="line">&#123;</span><br><span class="line">    (*Q).front = (struct celltype *)malloc(sizeof(struct celltype));</span><br><span class="line">    (*Q).front-&gt;next=NULL; //创建一个空节点，并将其作为队列的头</span><br><span class="line">    (*Q).rear = (*Q).front; //将尾指针指向头指针</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>队列的初始化即为队列分配存储空间，并初始化front和rear。</p>
-<h2 id="4-入队列"><a href="#4-入队列" class="headerlink" title="4. 入队列"></a>4. 入队列</h2><p>下面将介绍队列中两个比较重要的操作，一个是入队列，一个是出队列。(下文中的队列均指指针实现队列)<br>其中实现的方式为，先从队列的末尾插入元素，即先创建一个节点，然后将其插入到队列的末尾。当需要出队列的时候，从队列的头开始出队列。</p>
-<p>下面是入队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void push(QUEUE *Q, int x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p = (struct celltype *)malloc(sizeof(struct celltype)); // 创建新的节点，使其位于队列的末尾</span><br><span class="line">    p-&gt;data = x; // 将数据赋值给新节点</span><br><span class="line">    p-&gt;next = NULL; // 将新节点的指针域置空</span><br><span class="line">    (*Q).rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">    (*Q).rear = p; // 将尾后指针指向新节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>这里对</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">(*Q).rear-&gt;next = p; // 将新节点插入到队列的末尾</span><br><span class="line">(*Q).rear = p; // 将尾后指针指向新节点</span><br></pre></td></tr></table></figure>
-<p><strong>这两行代码做解释，解答为什么不能只写最后一行，而需要两行都写：</strong></p>
-<p><strong>第一行是将新节点插入到队列的末尾，但是此时尾后指针并没有指向新节点，所以需要将尾后指针指向新节点。</strong><br><strong>第二行是将尾后指针指向新节点，此时新节点已经插入到队列的末尾，所以需要将尾后指针指向新节点。也就是说，Q-&gt;rear只是一个标志，他的存在就是为了得到最后一个节点的位置，而并不是固定的某个元素</strong></p>
-<h2 id="5-出队列"><a href="#5-出队列" class="headerlink" title="5. 出队列"></a>5. 出队列</h2><p>下面是出队列的示例：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">void pop(QUEUE *Q,int *x)</span><br><span class="line">&#123;</span><br><span class="line">    struct celltype *p;</span><br><span class="line">    p=(*Q).front-&gt;next; //将队列的头节点的指针赋值给p</span><br><span class="line">    *x=p-&gt;data; //将p节点的数据赋值给x</span><br><span class="line">    (*Q).front-&gt;next=p-&gt;next; //将p节点的指针域赋值给队列的头节点的指针域</span><br><span class="line">    free(p); //释放p节点</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>队列</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】顺序栈</title>
-    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
-    <content><![CDATA[<ul>
-<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
-<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
-<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
-<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
-<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
-<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
-<li><a href="#15-%E6%A0%88%E7%9A%84%E5%88%A4%E7%A9%BA%E5%92%8C%E5%88%A4%E6%BB%A1">1.5. 栈的判空和判满</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
-<span id="more"></span>
-<p> 栈的判空和判满](#15-栈的判空和判满)</p>
-<p>基本操作有以下几种：</p>
-<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
-<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
-<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
-<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
-<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>栈</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>【数据结构】二叉树的基本操作</title>
-    <url>/2023/10/06/%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">二叉树的基本操作</a><ul>
-<li><a href="#1-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9B%E5%BB%BA">1. 二叉树的创建</a><ul>
-<li><a href="#11-%E9%A1%BA%E5%BA%8F%E5%AD%98%E5%82%A8">1.1. 顺序存储</a></li>
-<li><a href="#12-%E9%93%BE%E5%BC%8F%E5%AD%98%E5%82%A8">1.2. 链式存储</a></li>
-</ul>
-</li>
-<li><a href="#2-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">2. 二叉树的初始化</a></li>
-<li><a href="#3-%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%92%E5%85%A5%E8%8A%82%E7%82%B9">3. 二叉树插入节点</a></li>
-<li><a href="#4-%E4%BA%8C%E5%8F%89%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86">4. 二叉树的遍历</a><ul>
-<li><a href="#41-%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86">4.1. 递归遍历</a></li>
-<li><a href="#42-%E5%B1%82%E5%BA%8F%E9%81%8D%E5%8E%86">4.2. 层序遍历</a></li>
-<li><a href="#43-%E9%9D%9E%E9%80%92%E5%BD%92%E9%81%8D%E5%8E%86">4.3. 非递归遍历</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h1 id="二叉树的基本操作"><a href="#二叉树的基本操作" class="headerlink" title="二叉树的基本操作"></a>二叉树的基本操作</h1><h2 id="1-二叉树的创建"><a href="#1-二叉树的创建" class="headerlink" title="1. 二叉树的创建"></a>1. 二叉树的创建</h2><p>二叉树的存储方式哦同样有两种，一种是顺序存储，一种是链式存储。</p>
-<span id="more"></span>
-<h3 id="1-1-顺序存储"><a href="#1-1-顺序存储" class="headerlink" title="1.1. 顺序存储"></a>1.1. 顺序存储</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 100</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TreeNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="type">bool</span> isEmpty;</span><br><span class="line">&#125;</span><br><span class="line">TreeNode t[MAXSIZE];</span><br></pre></td></tr></table></figure>
-<p>与其他数据结构类似，树的结构同样是先来一个结点，再来一个树的整体。<br>在树的结构体中，data表示数据域，用来存放树的节点的数据，isEmpty表示树的这个节点是否为空。</p>
-<p>对树的节点声明以后，再创建一个以节点类型为数组元素类型的数组，这样树的结构就定义好了。</p>
-<p>但由于顺序二叉树对于空间的浪费和查询的困难，顺序二叉树只适合于完全二叉树，所以我们一般使用链式二叉树。</p>
-<h3 id="1-2-链式存储"><a href="#1-2-链式存储" class="headerlink" title="1.2. 链式存储"></a>1.2. 链式存储</h3><p>一个典型的存储结构如下</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">BTNode</span>&#123;</span></span><br><span class="line">    <span class="type">int</span> data;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">lchild</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span> *<span class="title">rchild</span>;</span></span><br><span class="line">&#125;BTNode,*BTree;</span><br></pre></td></tr></table></figure>
-<p>该结构采用的是二叉树的左右链表示，即一个结构体中有三部分，一部分是二叉树节点本事的数据，其他两部分是指向二叉树下一个节点的指针，一个指向左子树，一个指向右子树。<br>其中data为数据域，left和right为指针域，分别指向左孩子和右孩子。</p>
-<h2 id="2-二叉树的初始化"><a href="#2-二叉树的初始化" class="headerlink" title="2. 二叉树的初始化"></a>2. 二叉树的初始化</h2><p>二叉树的初始化只需要创建一个二叉树，并让他等于NULL即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitBTree</span><span class="params">(BTree *root)</span></span><br><span class="line">&#123;</span><br><span class="line">    *root=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果我们要对根节点进行初始化的话，可以采取以下的方式：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">root=(BTree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BTNode));</span><br><span class="line">root-&gt;lchild=<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;rchild-<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;data=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-
-<h2 id="3-二叉树插入节点"><a href="#3-二叉树插入节点" class="headerlink" title="3. 二叉树插入节点"></a>3. 二叉树插入节点</h2><p>如果需要对一个二叉树插入一个节点，我们只需要申请内存然后赋值即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">BTNode *p=(BTNode *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(BTNode));</span><br><span class="line">p-&gt;data=<span class="number">2</span>;</span><br><span class="line">p-&gt;lchild=<span class="literal">NULL</span>;</span><br><span class="line">p-&gt;rchild=<span class="literal">NULL</span>;</span><br><span class="line">root-&gt;lchild=p;</span><br></pre></td></tr></table></figure>
-<h2 id="4-二叉树的遍历"><a href="#4-二叉树的遍历" class="headerlink" title="4. 二叉树的遍历"></a>4. 二叉树的遍历</h2><p>二叉树的遍历有四种基本的方式，分别为先序遍历，中序遍历，后序遍历和层次遍历。其中每一种方式又有两种方式，分别为递归和非递归。</p>
-<h3 id="4-1-递归遍历"><a href="#4-1-递归遍历" class="headerlink" title="4.1. 递归遍历"></a>4.1. 递归遍历</h3><p>递归遍历的方式比较简单，只需要按照先序遍历的顺序，依次递归遍历二叉树即可，并且不同遍历方式的代码相似。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">firstTree</span><span class="params">(BTree BT)</span><span class="comment">//先序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">        firstTree(BT-&gt;left);</span><br><span class="line">        firstTree(BT-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">middleTree</span><span class="params">(BTree BT)</span><span class="comment">//中序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        middleTree(BT-&gt;left);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">        middleTree(BT-&gt;right);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">lastTree</span><span class="params">(BTree BT)</span><span class="comment">//后序遍历递归</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(BT!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">        lastTree(BT-&gt;left);</span><br><span class="line">        lastTree(BT-&gt;right);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,BT-&gt;data);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;#&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>可以通过递归遍历的方式输入数据来建立二叉树</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">CreateBT</span><span class="params">(Tree *BT)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> ch;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入字符:\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>,&amp;ch);</span><br><span class="line">    <span class="keyword">if</span>(ch==<span class="string">&#x27;#&#x27;</span>)</span><br><span class="line">        *BT=<span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        *BT=(Tree)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(TreeNode));</span><br><span class="line">        (*BT)-&gt;data = ch;</span><br><span class="line">        CreateBT(&amp;((*BT)-&gt;left));</span><br><span class="line">        CreateBT(&amp;((*BT)-&gt;right));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这里是一个先序遍历的建立二叉树的方式</p>
-<h3 id="4-2-层序遍历"><a href="#4-2-层序遍历" class="headerlink" title="4.2. 层序遍历"></a>4.2. 层序遍历</h3><p>层序遍历的基本原理是借助队列的形式，当一个节点被读入以后，我们先将其压入队列末尾。接下来如果队列元素不空的话，我们就将队头的节点弹出，然后访问其值，并且将其左右子树压入队列末尾。以此类推循环往复，就达到了层序遍历的目的。<br>具体代码实现如下</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">levelOrder</span><span class="params">(BTree BT)</span></span><br><span class="line">&#123;</span><br><span class="line">    LinkQuene Q;</span><br><span class="line">    InitQuene(Q);</span><br><span class="line">    BTree p;</span><br><span class="line">    EnQuene(Q,BT);</span><br><span class="line">    <span class="keyword">while</span>(!isEmpty(Q))</span><br><span class="line">    &#123;</span><br><span class="line">        DeQueneu(Q,p);</span><br><span class="line">        visit(p);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;lchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQuene(Q,p-&gt;lchild);</span><br><span class="line">        <span class="keyword">if</span>(p-&gt;rchild!=<span class="literal">NULL</span>)</span><br><span class="line">            EnQuene(Q,p-&gt;rchild);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="4-3-非递归遍历"><a href="#4-3-非递归遍历" class="headerlink" title="4.3. 非递归遍历"></a>4.3. 非递归遍历</h3><p>非递归遍历需要通过栈的操作来进行，<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//前序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">firstTree</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    BTNode* p = root;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;  <span class="comment">//创造一个栈，用来存放树节点</span></span><br><span class="line">    <span class="keyword">while</span> (!s.empty() || p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//如果p不为空的话，酒将p压入栈中，然后让p指向左子树</span></span><br><span class="line">        <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当p为空时，说明根和左子树都遍历完了，该进入右子树了</span></span><br><span class="line">        <span class="keyword">if</span> (!s.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            p = p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//中序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">middleTree</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    BTNode* p = root;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;  <span class="comment">//创造一个栈，用来存放树节点</span></span><br><span class="line">    <span class="keyword">while</span> (!s.empty() || p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//如果p不为空的话，酒将p压入栈中，然后让p指向左子树</span></span><br><span class="line">        <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            s.push(p);</span><br><span class="line">            p = p-&gt;lchild;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">//当p为空时，说明根和左子树都遍历完了，该进入右子树了</span></span><br><span class="line">        <span class="keyword">if</span> (!s.empty())</span><br><span class="line">        &#123;</span><br><span class="line">            p = s.top();</span><br><span class="line">            s.pop();</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            p = p-&gt;rchild;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>其中前序遍历和中序遍历的方式较为相似，只需要先建立一个栈，然后将访问到的节点存入栈中，节点一直向左指向，直到节点为空。<br>当节点为空时让指针指向栈顶元素并弹出，然后开始右子树的访问。<br>前序遍历和中序遍历的区别仅仅在于打印数据的时间不同。</p>
-<p>而后序遍历则更加复杂一点</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//后序遍历</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">PostOrderWithoutRecursion</span><span class="params">(BTNode* root)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="literal">NULL</span>)</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    <span class="built_in">stack</span>&lt;BTNode*&gt; s;</span><br><span class="line">    BTNode *p=root;<span class="comment">//p用来表示当前访问的节点</span></span><br><span class="line">    BTNode *q=<span class="literal">NULL</span>;<span class="comment">//q用来表示上一个访问的节点</span></span><br><span class="line">    <span class="comment">//先把p移动到左子树最下边</span></span><br><span class="line">    <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        s.push(P);</span><br><span class="line">        p = p-&gt;lchild;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (!s.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//此时让p已经为空了，先从栈中提取一个元素赋给p</span></span><br><span class="line">        p = s.top();<span class="comment">//现在p的值就是最左下角的节点</span></span><br><span class="line">        s.pop();</span><br><span class="line">        <span class="keyword">if</span> (p-&gt;rchild == <span class="literal">NULL</span> || p-&gt;rchild == q) <span class="comment">//如果右子树为空或者刚访问过右子树</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>,p-&gt;data);</span><br><span class="line">            q = p;<span class="comment">//每次输出值以后，修改上一次访问的节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(p-&gt;lchild==q)<span class="comment">//如果左子树已经访问过了</span></span><br><span class="line">        &#123;</span><br><span class="line">            s.push(p);<span class="comment">//让根结点入栈</span></span><br><span class="line">            p = p-&gt;rchild; <span class="comment">//进入右子树</span></span><br><span class="line">            <span class="keyword">while</span> (p!=<span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                s.push(p);</span><br><span class="line">                p = p-&gt;lchild;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后序遍历需要两个指针，其中一个指针指向的是当前访问的元素，另一个指针指向的是上次访问过的元素。<br>这样是为了保证左右子树都访问过了以后在访问根节点：当我们访问过左子树以后，弹出根节点，然后需要判断右子树是否访问过或者右子树是否为空，如果是的话就访问根节点，否则就将右子树的根节点压入栈中，然后再访问右子树的根节点的左子树，直到右子树为空或者右子树被访问过，就返回去访问根节点弹栈。</p>
-]]></content>
-      <categories>
-        <category>数据结构</category>
-      </categories>
-      <tags>
-        <tag>二叉树</tag>
       </tags>
   </entry>
 </search>
