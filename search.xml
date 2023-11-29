@@ -19,34 +19,53 @@
 ]]></content>
   </entry>
   <entry>
-    <title>【数据结构】链表栈</title>
-    <url>/2023/10/06/%E9%93%BE%E8%A1%A8%E6%A0%88/</url>
+    <title>【C++】标准库类型string</title>
+    <url>/2023/10/10/%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8BString/</url>
     <content><![CDATA[<p>目录：</p>
 <ul>
-<li><a href="#%E9%93%BE%E8%A1%A8%E6%A0%88">链表栈</a><ul>
-<li><a href="#1-%E9%93%BE%E5%BC%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0">1. 链式栈的实现</a></li>
-<li><a href="#2-%E9%93%BE%E8%A1%A8%E6%A0%88%E7%9A%84%E5%88%9B%E5%BB%BA">2. 链表栈的创建</a></li>
-<li><a href="#3-%E5%8E%8B%E6%A0%88">3. 压栈</a></li>
-<li><a href="#4-%E5%BC%B9%E6%A0%88">4. 弹栈</a></li>
+<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bstring">标准库类型String</a><ul>
+<li><a href="#1-%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96string%E5%AF%B9%E8%B1%A1">1. 定义和初始化string对象</a></li>
+<li><a href="#2-string%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C">2. string对象上的操作</a><ul>
+<li><a href="#21-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%AF%BB%E5%8F%96">2.1. 字符串的读取：</a></li>
+<li><a href="#22-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%8A%A0">2.2. 字符串相加：</a></li>
+</ul>
+</li>
+<li><a href="#3-%E5%A4%84%E7%90%86string%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6">3. 处理string对象中的字符</a><ul>
+<li><a href="#31-%E5%A4%84%E7%90%86%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6">3.1. 处理每个字符</a></li>
 </ul>
 </li>
 </ul>
-<h1 id="链表栈"><a href="#链表栈" class="headerlink" title="链表栈"></a>链表栈</h1><p>栈的主要表示方式有两种，一种是顺序表示，另一种是链式表示。本文主要介绍链式表示的栈。<br>链栈实际上和单链表差别不大，唯一区别就在于只需要对链表限定从头部进行删除元素和增加元素就可以了。</p>
+</li>
+</ul>
+<h1 id="标准库类型String"><a href="#标准库类型String" class="headerlink" title="标准库类型String"></a>标准库类型String</h1><p>使用string类型必须先包含相应头文件。同时作为标准库的一部分，string定义在命名空间std中。</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::string;</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<h2 id="1-链式栈的实现"><a href="#1-链式栈的实现" class="headerlink" title="1. 链式栈的实现"></a>1. 链式栈的实现</h2><p>链式栈的实现，是通过先定义一个结构体节点，然后定义一个指向该结构体的指针，通过该指针来操作栈。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span>  <span class="comment">/* 指向下一个节点的指针 */</span></span><br><span class="line">    <span class="type">int</span> data;           <span class="comment">/* 数据域 */</span></span><br><span class="line">&#125; Node;</span><br><span class="line"><span class="keyword">typedef</span> Node *Stack;</span><br></pre></td></tr></table></figure>
-<p>其中<code>Stack</code>是一个指向<code>Node</code>的指针，通过该指针可以访问链式栈的栈顶元素。</p>
-<h2 id="2-链表栈的创建"><a href="#2-链表栈的创建" class="headerlink" title="2. 链表栈的创建"></a>2. 链表栈的创建</h2><p>类似于链表的创建，链表栈也分头结点和不带头结点两种。这里为了方便起见，我们决定使用带头结点的版本。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    *S=(Stcak)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    (*S)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-压栈"><a href="#3-压栈" class="headerlink" title="3. 压栈"></a>3. 压栈</h2><p>在进行压栈操作时，我们规定只在链表的头部进行插入，即在头结点之后插入一个元素，使得这个元素的指针指向头结点的下一个元素，然后让头结点的指针指向这个元素。<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(Stack *S,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=(Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    p-&gt;next=(*S)-&gt;next;</span><br><span class="line">    p-&gt;data=x;</span><br><span class="line">    (*S)-&gt;next=p;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="4-弹栈"><a href="#4-弹栈" class="headerlink" title="4. 弹栈"></a>4. 弹栈</h2><p>同样的，我们也只需要在头部进行删除元素即可<br>示例代码如下：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack *S,<span class="type">int</span> *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=S;</span><br><span class="line">    p=S-&gt;next;</span><br><span class="line">    Node *q=p-&gt;next;</span><br><span class="line">    S-&gt;next=q;</span><br><span class="line">    (*x)=p-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+<h2 id="1-定义和初始化string对象"><a href="#1-定义和初始化string对象" class="headerlink" title="1. 定义和初始化string对象"></a>1. 定义和初始化string对象</h2><p>与C语言不同，string本身就可作为一种数据类型，其实现不需要借助字符数组</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s1;</span><br><span class="line">string s2=s1;</span><br><span class="line">string s3=<span class="string">&quot;HELLO&quot;</span>;</span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="number">10</span>,<span class="string">&#x27;c&#x27;</span>)</span></span>; <span class="comment">//s4的内容是cccccccccc </span></span><br><span class="line"><span class="function">string <span class="title">s5</span><span class="params">(<span class="string">&quot;HELLO&quot;</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>其中使用等号的是拷贝初始化，不使用等号的是直接初始化。当数据较多且重复时用直接初始化（如s4）更加省事。</p>
+<h2 id="2-string对象上的操作"><a href="#2-string对象上的操作" class="headerlink" title="2. string对象上的操作"></a>2. string对象上的操作</h2><p>一些操作如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">os&lt;&lt;s <span class="comment">//将s写到输出流os中，返回os</span></span><br><span class="line">is&gt;&gt;s <span class="comment">//从is中读取字符串赋给s，字符串以空白分隔，返回is</span></span><br><span class="line"><span class="built_in">getline</span>(is,s) <span class="comment">//从is中读取一行赋给s，返回is</span></span><br><span class="line">s.<span class="built_in">empty</span>() <span class="comment">//s为空返回true，否则返回false</span></span><br><span class="line">s.<span class="built_in">size</span>() <span class="comment">//返回s中字符的个数,类型为unsigned</span></span><br><span class="line">s[n] <span class="comment">//类似于C语言的字符串数组，返回第n个值，数组也是第一位从0开始</span></span><br><span class="line">s1+s2 <span class="comment">//返回s1和s2连接后的结果</span></span><br><span class="line">s1=s2 <span class="comment">//将s2的值赋给s1</span></span><br><span class="line">s1==s2 <span class="comment">//按照字典序比较s1和s2，其他比较方法和C语言的普通数据类型比较相同，并不需要使用特殊的函数，＞＜也是通过字典序比较的</span></span><br></pre></td></tr></table></figure>
+<h3 id="2-1-字符串的读取："><a href="#2-1-字符串的读取：" class="headerlink" title="2.1. 字符串的读取："></a>2.1. 字符串的读取：</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s; <span class="comment">//直接将string对象读入s，遇到空白符停止（如空格符，换行符，制表符）</span></span><br></pre></td></tr></table></figure>
+<p>cin会忽略空白开头的字符，从第一个非空白的字符开始读取，直到遇到空白符停止，因此可以同时读入两个或者多个字符串，只需要用空格符加以区分即可。</p>
+<p>但是当我们需要读入空格符的时候，我们可以使用getline函数来代替原来的&gt;&gt;运算符</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">getline</span>(cin,line);</span><br></pre></td></tr></table></figure>
+<p>这样就相当于在line中读入字符串，可以读入空格符号(‘ ‘)，但是当遇到换行符的时候就停止</p>
+<h3 id="2-2-字符串相加："><a href="#2-2-字符串相加：" class="headerlink" title="2.2. 字符串相加："></a>2.2. 字符串相加：</h3><p>字符串类型的s1和s2可以直接相加，但是当遇到字面值的时候，相加时需要先与字符串类型的数据相加，示例代码如下：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s1=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">string s2=<span class="string">&quot;hello&quot;</span>+s1; <span class="comment">//正确</span></span><br><span class="line">string s3=<span class="string">&quot;hello&quot;</span>+<span class="string">&quot;Bob&quot;</span>; <span class="comment">//错误，因为字符串字面值不能直接相加</span></span><br><span class="line">string s4=<span class="string">&quot;hello&quot;</span>+<span class="string">&quot;Bob&quot;</span>+s1; <span class="comment">//错误，因为编译器默认先进行计算前两个相加，即字符串字面量相加，然而这是非法的</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="3-处理string对象中的字符"><a href="#3-处理string对象中的字符" class="headerlink" title="3. 处理string对象中的字符"></a>3. 处理string对象中的字符</h2><p>cctype头文件中可以直接使用的函数：</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">isalnum</span>(c) <span class="comment">//当c为字母或者数字为true</span></span><br><span class="line"><span class="built_in">isalpha</span>(c) <span class="comment">//当c是字母时为true</span></span><br><span class="line"><span class="built_in">iscntrl</span>(c) <span class="comment">//当c是控制字符时为true</span></span><br><span class="line"><span class="built_in">isgraph</span>(c) <span class="comment">//当c不是空格但可以打印时为true</span></span><br><span class="line"><span class="built_in">islower</span>(c) <span class="comment">//当c是小写字母时为true</span></span><br><span class="line"><span class="built_in">isprint</span>(c) <span class="comment">//当c是可打印字符时为true</span></span><br><span class="line"><span class="built_in">ispunct</span>(c) <span class="comment">//当c是标点符号时为true（即c不是控制字符、数字、字母、可打印空白中的一种）</span></span><br><span class="line"><span class="built_in">isspace</span>(c) <span class="comment">//当c是空白时为true（即c是空格、横向制表符、纵向制表符、回车符、换行符、进纸符中的一种）</span></span><br><span class="line"><span class="built_in">isupper</span>(c) <span class="comment">//当c是大写字母时为true</span></span><br><span class="line"><span class="built_in">isxdigit</span>(c) <span class="comment">//当c是十六进制数字时为真</span></span><br><span class="line"><span class="built_in">tolower</span>(c) <span class="comment">//如果c是大写字母，输出相应小写字母，否则原样输出c</span></span><br><span class="line"><span class="built_in">toupper</span>(c) <span class="comment">//如果c是小写字母，输出相应大写字母，否则原样输出c</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-1-处理每个字符"><a href="#3-1-处理每个字符" class="headerlink" title="3.1. 处理每个字符"></a>3.1. 处理每个字符</h3><p>使用基于范围的for语句</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">str</span><span class="params">(<span class="string">&quot;some string&quot;</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> c : str)</span><br><span class="line">    cout&lt;&lt;c&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
+<p>auto c相当于定义一个变量，在这段代码中可以替换成char，他们的效果等同。其中quto相当于让编译器自己考虑该给c赋什么类型的变量，是一种通用且提高效率的方式。</p>
+<p>通俗解释一下这段代码：for范围中，：冒号之前的相当于字符串中的单个字符，冒号后面的是字符串整个元素，也就是一种遍历的简化书写方式。</p>
+]]></content>
       <categories>
-        <category>数据结构</category>
+        <category>C++</category>
       </categories>
       <tags>
-        <tag>栈</tag>
+        <tag>字符串</tag>
       </tags>
   </entry>
   <entry>
@@ -114,42 +133,29 @@
       </tags>
   </entry>
   <entry>
-    <title>【数据结构】顺序栈</title>
-    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
-    <content><![CDATA[<ul>
-<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
-<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
-<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
-<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
-<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
-<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
-<li><a href="#15-%E6%A0%88%E7%9A%84%E5%88%A4%E7%A9%BA%E5%92%8C%E5%88%A4%E6%BB%A1">1.5. 栈的判空和判满</a></li>
+    <title>【数据结构】链表栈</title>
+    <url>/2023/10/06/%E9%93%BE%E8%A1%A8%E6%A0%88/</url>
+    <content><![CDATA[<p>目录：</p>
+<ul>
+<li><a href="#%E9%93%BE%E8%A1%A8%E6%A0%88">链表栈</a><ul>
+<li><a href="#1-%E9%93%BE%E5%BC%8F%E6%A0%88%E7%9A%84%E5%AE%9E%E7%8E%B0">1. 链式栈的实现</a></li>
+<li><a href="#2-%E9%93%BE%E8%A1%A8%E6%A0%88%E7%9A%84%E5%88%9B%E5%BB%BA">2. 链表栈的创建</a></li>
+<li><a href="#3-%E5%8E%8B%E6%A0%88">3. 压栈</a></li>
+<li><a href="#4-%E5%BC%B9%E6%A0%88">4. 弹栈</a></li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
+<h1 id="链表栈"><a href="#链表栈" class="headerlink" title="链表栈"></a>链表栈</h1><p>栈的主要表示方式有两种，一种是顺序表示，另一种是链式表示。本文主要介绍链式表示的栈。<br>链栈实际上和单链表差别不大，唯一区别就在于只需要对链表限定从头部进行删除元素和增加元素就可以了。</p>
 <span id="more"></span>
-<p> 栈的判空和判满](#15-栈的判空和判满)</p>
-<p>基本操作有以下几种：</p>
-<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
-<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
-<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
-<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
-<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-]]></content>
+<h2 id="1-链式栈的实现"><a href="#1-链式栈的实现" class="headerlink" title="1. 链式栈的实现"></a>1. 链式栈的实现</h2><p>链式栈的实现，是通过先定义一个结构体节点，然后定义一个指向该结构体的指针，通过该指针来操作栈。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">node</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">node</span>* <span class="title">next</span>;</span>  <span class="comment">/* 指向下一个节点的指针 */</span></span><br><span class="line">    <span class="type">int</span> data;           <span class="comment">/* 数据域 */</span></span><br><span class="line">&#125; Node;</span><br><span class="line"><span class="keyword">typedef</span> Node *Stack;</span><br></pre></td></tr></table></figure>
+<p>其中<code>Stack</code>是一个指向<code>Node</code>的指针，通过该指针可以访问链式栈的栈顶元素。</p>
+<h2 id="2-链表栈的创建"><a href="#2-链表栈的创建" class="headerlink" title="2. 链表栈的创建"></a>2. 链表栈的创建</h2><p>类似于链表的创建，链表栈也分头结点和不带头结点两种。这里为了方便起见，我们决定使用带头结点的版本。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack *S)</span></span><br><span class="line">&#123;</span><br><span class="line">    *S=(Stcak)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    <span class="keyword">if</span>(S==<span class="literal">NULL</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    (*S)-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-压栈"><a href="#3-压栈" class="headerlink" title="3. 压栈"></a>3. 压栈</h2><p>在进行压栈操作时，我们规定只在链表的头部进行插入，即在头结点之后插入一个元素，使得这个元素的指针指向头结点的下一个元素，然后让头结点的指针指向这个元素。<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">Push</span><span class="params">(Stack *S,<span class="type">int</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=(Stack)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Node));</span><br><span class="line">    p-&gt;next=(*S)-&gt;next;</span><br><span class="line">    p-&gt;data=x;</span><br><span class="line">    (*S)-&gt;next=p;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-弹栈"><a href="#4-弹栈" class="headerlink" title="4. 弹栈"></a>4. 弹栈</h2><p>同样的，我们也只需要在头部进行删除元素即可<br>示例代码如下：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack *S,<span class="type">int</span> *x)</span></span><br><span class="line">&#123;</span><br><span class="line">    Node *p=S;</span><br><span class="line">    p=S-&gt;next;</span><br><span class="line">    Node *q=p-&gt;next;</span><br><span class="line">    S-&gt;next=q;</span><br><span class="line">    (*x)=p-&gt;data;</span><br><span class="line">    <span class="built_in">free</span>(p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
         <category>数据结构</category>
       </categories>
@@ -272,53 +278,47 @@
       </tags>
   </entry>
   <entry>
-    <title>【C++】标准库类型string</title>
-    <url>/2023/10/10/%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8BString/</url>
-    <content><![CDATA[<p>目录：</p>
-<ul>
-<li><a href="#%E6%A0%87%E5%87%86%E5%BA%93%E7%B1%BB%E5%9E%8Bstring">标准库类型String</a><ul>
-<li><a href="#1-%E5%AE%9A%E4%B9%89%E5%92%8C%E5%88%9D%E5%A7%8B%E5%8C%96string%E5%AF%B9%E8%B1%A1">1. 定义和初始化string对象</a></li>
-<li><a href="#2-string%E5%AF%B9%E8%B1%A1%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C">2. string对象上的操作</a><ul>
-<li><a href="#21-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%AF%BB%E5%8F%96">2.1. 字符串的读取：</a></li>
-<li><a href="#22-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%8A%A0">2.2. 字符串相加：</a></li>
-</ul>
-</li>
-<li><a href="#3-%E5%A4%84%E7%90%86string%E5%AF%B9%E8%B1%A1%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6">3. 处理string对象中的字符</a><ul>
-<li><a href="#31-%E5%A4%84%E7%90%86%E6%AF%8F%E4%B8%AA%E5%AD%97%E7%AC%A6">3.1. 处理每个字符</a></li>
+    <title>【数据结构】顺序栈</title>
+    <url>/2023/10/05/%E9%A1%BA%E5%BA%8F%E6%A0%88/</url>
+    <content><![CDATA[<ul>
+<li><a href="#%E9%A1%BA%E5%BA%8F%E6%A0%88">顺序栈</a><ul>
+<li><a href="#1-%E6%A0%88%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%E5%88%9B%E5%BB%BA">1. 栈的数组实现（创建）</a><ul>
+<li><a href="#11-%E6%A0%88%E7%9A%84%E5%88%9D%E5%A7%8B%E5%8C%96">1.1. 栈的初始化</a></li>
+<li><a href="#12-%E6%A0%88%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%8E%8B%E6%A0%88">1.2. 栈的增加（压栈）</a></li>
+<li><a href="#13-%E6%A0%88%E7%9A%84%E5%88%A0%E9%99%A4%E5%BC%B9%E6%A0%88">1.3. 栈的删除（弹栈）</a></li>
+<li><a href="#14-%E6%A0%88%E7%9A%84%E6%9F%A5%E8%AF%A2">1.4. 栈的查询</a></li>
+<li><a href="#15-%E6%A0%88%E7%9A%84%E5%88%A4%E7%A9%BA%E5%92%8C%E5%88%A4%E6%BB%A1">1.5. 栈的判空和判满</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="标准库类型String"><a href="#标准库类型String" class="headerlink" title="标准库类型String"></a>标准库类型String</h1><p>使用string类型必须先包含相应头文件。同时作为标准库的一部分，string定义在命名空间std中。</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> std::string;</span><br></pre></td></tr></table></figure>
+<h1 id="顺序栈"><a href="#顺序栈" class="headerlink" title="顺序栈"></a>顺序栈</h1><p>栈是一种数据结构，其主要特点是后进先出，相当于我们在瓶子里面放东西，后放进去的东西在上面，所以拿出来的时候自然是从上面取出来，所以后进去的先出来。<br>本文主要介绍的是栈的数组实现方法，即顺序栈。</p>
 <span id="more"></span>
-<h2 id="1-定义和初始化string对象"><a href="#1-定义和初始化string对象" class="headerlink" title="1. 定义和初始化string对象"></a>1. 定义和初始化string对象</h2><p>与C语言不同，string本身就可作为一种数据类型，其实现不需要借助字符数组</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s1;</span><br><span class="line">string s2=s1;</span><br><span class="line">string s3=<span class="string">&quot;HELLO&quot;</span>;</span><br><span class="line"><span class="function">string <span class="title">s4</span><span class="params">(<span class="number">10</span>,<span class="string">&#x27;c&#x27;</span>)</span></span>; <span class="comment">//s4的内容是cccccccccc </span></span><br><span class="line"><span class="function">string <span class="title">s5</span><span class="params">(<span class="string">&quot;HELLO&quot;</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>其中使用等号的是拷贝初始化，不使用等号的是直接初始化。当数据较多且重复时用直接初始化（如s4）更加省事。</p>
-<h2 id="2-string对象上的操作"><a href="#2-string对象上的操作" class="headerlink" title="2. string对象上的操作"></a>2. string对象上的操作</h2><p>一些操作如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">os&lt;&lt;s <span class="comment">//将s写到输出流os中，返回os</span></span><br><span class="line">is&gt;&gt;s <span class="comment">//从is中读取字符串赋给s，字符串以空白分隔，返回is</span></span><br><span class="line"><span class="built_in">getline</span>(is,s) <span class="comment">//从is中读取一行赋给s，返回is</span></span><br><span class="line">s.<span class="built_in">empty</span>() <span class="comment">//s为空返回true，否则返回false</span></span><br><span class="line">s.<span class="built_in">size</span>() <span class="comment">//返回s中字符的个数,类型为unsigned</span></span><br><span class="line">s[n] <span class="comment">//类似于C语言的字符串数组，返回第n个值，数组也是第一位从0开始</span></span><br><span class="line">s1+s2 <span class="comment">//返回s1和s2连接后的结果</span></span><br><span class="line">s1=s2 <span class="comment">//将s2的值赋给s1</span></span><br><span class="line">s1==s2 <span class="comment">//按照字典序比较s1和s2，其他比较方法和C语言的普通数据类型比较相同，并不需要使用特殊的函数，＞＜也是通过字典序比较的</span></span><br></pre></td></tr></table></figure>
-<h3 id="2-1-字符串的读取："><a href="#2-1-字符串的读取：" class="headerlink" title="2.1. 字符串的读取："></a>2.1. 字符串的读取：</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s;</span><br><span class="line">cin&gt;&gt;s; <span class="comment">//直接将string对象读入s，遇到空白符停止（如空格符，换行符，制表符）</span></span><br></pre></td></tr></table></figure>
-<p>cin会忽略空白开头的字符，从第一个非空白的字符开始读取，直到遇到空白符停止，因此可以同时读入两个或者多个字符串，只需要用空格符加以区分即可。</p>
-<p>但是当我们需要读入空格符的时候，我们可以使用getline函数来代替原来的&gt;&gt;运算符</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">getline</span>(cin,line);</span><br></pre></td></tr></table></figure>
-<p>这样就相当于在line中读入字符串，可以读入空格符号(‘ ‘)，但是当遇到换行符的时候就停止</p>
-<h3 id="2-2-字符串相加："><a href="#2-2-字符串相加：" class="headerlink" title="2.2. 字符串相加："></a>2.2. 字符串相加：</h3><p>字符串类型的s1和s2可以直接相加，但是当遇到字面值的时候，相加时需要先与字符串类型的数据相加，示例代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">string s1=<span class="string">&quot;hello&quot;</span>;</span><br><span class="line">string s2=<span class="string">&quot;hello&quot;</span>+s1; <span class="comment">//正确</span></span><br><span class="line">string s3=<span class="string">&quot;hello&quot;</span>+<span class="string">&quot;Bob&quot;</span>; <span class="comment">//错误，因为字符串字面值不能直接相加</span></span><br><span class="line">string s4=<span class="string">&quot;hello&quot;</span>+<span class="string">&quot;Bob&quot;</span>+s1; <span class="comment">//错误，因为编译器默认先进行计算前两个相加，即字符串字面量相加，然而这是非法的</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-处理string对象中的字符"><a href="#3-处理string对象中的字符" class="headerlink" title="3. 处理string对象中的字符"></a>3. 处理string对象中的字符</h2><p>cctype头文件中可以直接使用的函数：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="built_in">isalnum</span>(c) <span class="comment">//当c为字母或者数字为true</span></span><br><span class="line"><span class="built_in">isalpha</span>(c) <span class="comment">//当c是字母时为true</span></span><br><span class="line"><span class="built_in">iscntrl</span>(c) <span class="comment">//当c是控制字符时为true</span></span><br><span class="line"><span class="built_in">isgraph</span>(c) <span class="comment">//当c不是空格但可以打印时为true</span></span><br><span class="line"><span class="built_in">islower</span>(c) <span class="comment">//当c是小写字母时为true</span></span><br><span class="line"><span class="built_in">isprint</span>(c) <span class="comment">//当c是可打印字符时为true</span></span><br><span class="line"><span class="built_in">ispunct</span>(c) <span class="comment">//当c是标点符号时为true（即c不是控制字符、数字、字母、可打印空白中的一种）</span></span><br><span class="line"><span class="built_in">isspace</span>(c) <span class="comment">//当c是空白时为true（即c是空格、横向制表符、纵向制表符、回车符、换行符、进纸符中的一种）</span></span><br><span class="line"><span class="built_in">isupper</span>(c) <span class="comment">//当c是大写字母时为true</span></span><br><span class="line"><span class="built_in">isxdigit</span>(c) <span class="comment">//当c是十六进制数字时为真</span></span><br><span class="line"><span class="built_in">tolower</span>(c) <span class="comment">//如果c是大写字母，输出相应小写字母，否则原样输出c</span></span><br><span class="line"><span class="built_in">toupper</span>(c) <span class="comment">//如果c是小写字母，输出相应大写字母，否则原样输出c</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="3-1-处理每个字符"><a href="#3-1-处理每个字符" class="headerlink" title="3.1. 处理每个字符"></a>3.1. 处理每个字符</h3><p>使用基于范围的for语句</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function">string <span class="title">str</span><span class="params">(<span class="string">&quot;some string&quot;</span>)</span></span>;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">auto</span> c : str)</span><br><span class="line">    cout&lt;&lt;c&lt;&lt;endl;</span><br></pre></td></tr></table></figure>
-<p>auto c相当于定义一个变量，在这段代码中可以替换成char，他们的效果等同。其中quto相当于让编译器自己考虑该给c赋什么类型的变量，是一种通用且提高效率的方式。</p>
-<p>通俗解释一下这段代码：for范围中，：冒号之前的相当于字符串中的单个字符，冒号后面的是字符串整个元素，也就是一种遍历的简化书写方式。</p>
+<p> 栈的判空和判满](#15-栈的判空和判满)</p>
+<p>基本操作有以下几种：</p>
+<h2 id="1-栈的数组实现（创建）"><a href="#1-栈的数组实现（创建）" class="headerlink" title="1. 栈的数组实现（创建）"></a>1. 栈的数组实现（创建）</h2><p>栈的数组实现起来相对简单。在定义的时候，我们只需要定义一个结构体即可</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> MAXSIZE 10000</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="type">char</span> data[MAXSIZE]; <span class="comment">// 创建最大长度的数组</span></span><br><span class="line">    <span class="type">int</span> top;          <span class="comment">// 当前顶部元素的位置</span></span><br><span class="line">&#125; Stack;</span><br></pre></td></tr></table></figure>
+<p>栈的结构体中需要一个数组来存储元素，还需要一个变量来记录当前栈顶元素的位置。</p>
+<h3 id="1-1-栈的初始化"><a href="#1-1-栈的初始化" class="headerlink" title="1.1. 栈的初始化"></a>1.1. 栈的初始化</h3><p>栈的初始化只需要让top为-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">InitStack</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    S.top = <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-栈的增加（压栈）"><a href="#1-2-栈的增加（压栈）" class="headerlink" title="1.2. 栈的增加（压栈）"></a>1.2. 栈的增加（压栈）</h3><p>压栈即将元素压入栈中，压栈的时候，我们需要给函数传递需要压栈的元素和栈本身。</p>
+<p>在压栈之前我们还需要判断栈是否已经满，若未满即可进行压栈。</p>
+<p>在压栈的过程中我们需要让top加一，即让栈顶元素的位置加一，然后让新的元素赋值到新的数组的top位置上。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">Push</span><span class="params">(Stack &amp;S,<span class="type">char</span> x)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;栈已满，无法插入元素！\n&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    S.top++;</span><br><span class="line">    S.data[S.top]=x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-3-栈的删除（弹栈）"><a href="#1-3-栈的删除（弹栈）" class="headerlink" title="1.3. 栈的删除（弹栈）"></a>1.3. 栈的删除（弹栈）</h3><p>当我们需要弹栈的时候，只需要返回数组top位置的元素，然后让top减一即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">Pop</span><span class="params">(Stack &amp;S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top--];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4-栈的查询"><a href="#1-4-栈的查询" class="headerlink" title="1.4. 栈的查询"></a>1.4. 栈的查询</h3><p>由于栈的特性，我们在查询的时候一般查询栈的栈顶元素。当我们需要查询栈顶元素的时候，只需要返回数组top位置的元素即可。如果需要对栈的其他元素进行查询，需要逐个遍历。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">GetTop</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top!=<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> S.data[S.top];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-栈的判空和判满"><a href="#1-5-栈的判空和判满" class="headerlink" title="1.5. 栈的判空和判满"></a>1.5. 栈的判空和判满</h3><p>栈的判空和比较简单，在判空时只需要判断top是否等于-1即可，在判满的时候只需要判断top是否等于MAXSIZE-1即可。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackEmpty</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(S.top==<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="type">bool</span> <span class="title function_">StackFull</span><span class="params">(Stack S)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(top==MAXSIZE<span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>C++</category>
+        <category>数据结构</category>
       </categories>
       <tags>
-        <tag>字符串</tag>
+        <tag>栈</tag>
       </tags>
   </entry>
 </search>
